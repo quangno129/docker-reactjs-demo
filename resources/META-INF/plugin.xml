@@ -1,0 +1,736 @@
+<idea-plugin require-restart="true">
+	<id>de.endrullis.idea.postfixtemplates</id>
+	<name>Custom Postfix Templates</name>
+	<vendor email="stefan@endrullis.de" url="https://github.com/xylo/intellij-postfix-templates">Stefan Endrullis</vendor>
+	<category>code editing</category>
+
+	<description><![CDATA[
+		<a href="https://github.com/xylo/intellij-postfix-templates#custom-postfix-templates-for-intellij-idea">Documentation</a> |
+		<a href="https://github.com/xylo/intellij-postfix-templates#screencast">Screencast</a> |
+		<a href="https://github.com/xylo/intellij-postfix-templates/wiki">Predefined templates</a>
+		<br/><br/>
+
+		<p>
+			This open source plugin lets you define your own postfix templates for Java, Scala, SQL, PHP, Kotlin, Python, Dart, JavaScript, Ruby, Rust, Go and Groovy.
+			It also comes with hundreds of useful postfix templates shared by the community.  You're welcome to contribute your templates as well.
+		</p>
+
+		<p>
+			<i>Apart from the community approach, how does the plugin differ from IDEA's postfix templates?</i>
+		</p>
+
+		<p>
+			Since IDEA 2018 you are now able to define your own postfix templates for some languages in the settings UI (<i>Editor → General → Postfix Templates</i>).
+			However, this is a pretty new feature and it's less functional than this plugin.
+
+			Here are some of the advantages of this plugin:
+			<ul>
+				<li>You can define different template rules (context based) for the same template name, e.g. <code>.toList</code> should behave differently for arrays and for sets.</li>
+				<li>You can use template variables (e.g. <code>$varName$</code>) which are filled in by the user while applying the template.</li>
+				<li>You can use live template macros to automatically fill some of the template variables (e.g. <code>$var:suggestVariableName()$</code>) as well as you can define default values.</li>
+				<li>You can restrict the availability of templates or template rules to the availability of certain classes or libraries (e.g. expand <code>"test".val</code> to <code>val s = "test"</code> if Lombok is available).</li>
+				<li>It allows you to use static imports instead of class imports (e.g. <code>array.toList</code> can be expanded to <code>asList(array)</code> instead of <code>Arrays.asList(array)</code> if you add <code>[USE_STATIC_IMPORTS]</code> to the rule).</li>
+				<li>It comes with <a href="https://github.com/xylo/intellij-postfix-templates/wiki">more than 500 editable postfix templates</a> with more than 700 template rules, e.g.
+					<ul>
+						<li>string.toInt        → Integer.parse(string)</li>
+						<li>array.toList        → Arrays.asList(array)</li>
+						<li>file.lines          → Files.readAllLines(file.toPath(), Charset.forName("UTF-8"))</li>
+						<li>file.getName().val  → final String name = file.getName();</li>
+					</ul>
+				</li>
+				<li>There are multiple ways to easily <a href="https://github.com/xylo/intellij-postfix-templates/wiki/Share-a-template-file-with-others">share your templates with others</a>.</li>
+			</ul>
+		</p>
+    ]]>
+	</description>
+
+	<change-notes><![CDATA[
+			<h3>Version 2.20.2</h3>
+			<ul>
+				<li>Removed Rust support in IDEA 2024.1.</li>
+			</ul>
+
+			<h3>Version 2.20.1</h3>
+			<ul>
+				<li>Fixed deprecated API usage.</li>
+			</ul>
+
+			<h3>Version 2.20.0</h3>
+			<ul>
+				<li>Replaced some deprecated libs.</li>
+			</ul>
+
+			<h3>Version 2.19.0</h3>
+			<ul>
+				<li>Lost support for typed SQL templates (because of API changes in SQL module).</li>
+			</ul>
+
+			<h3>Version 2.18.6</h3>
+			<ul>
+				<li>Show an error notification when postfix web templates could not be loaded from the internet.</li>
+				<li>Fixed potential memory leak.</li>
+			</ul>
+
+			<h3>Version 2.18.5</h3>
+			<ul>
+				<li>Fixed RuntimeExceptionWithAttachments.</li>
+			</ul>
+
+			<h3>Version 2.18.4</h3>
+			<ul>
+				<li>Plugin update requires restart.</li>
+			</ul>
+
+			<h3>Version 2.18.3</h3>
+			<ul>
+				<li>Allow to cancel the web templates update process.</li>
+				<li>Minor improvements of the update process.</li>
+			</ul>
+
+			<h3>Version 2.18.2</h3>
+			<ul>
+				<li>Fixed progress bar when updating web templates.</li>
+			</ul>
+
+			<h3>Version 2.18.1</h3>
+			<ul>
+				<li>Fixed Kotlin compile error by downgrading Kotlin.</li>
+			</ul>
+
+			<h3>Version 2.18.0</h3>
+			<ul>
+				<li>Fixed a deprecation.</li>
+				<li>Updated some libs.</li>
+			</ul>
+
+			<h3>Version 2.17.1</h3>
+			<ul>
+				<li>Re-added typed support for SQL again.</li>
+			</ul>
+
+			<h3>Version 2.17.0</h3>
+			<ul>
+				<li>Made CPT compatible with IDEA 2023.2.</li>
+				<li>Lost support for typed SQL templates (because of update).</li>
+			</ul>
+
+			<h3>Version 2.16.4</h3>
+			<ul>
+				<li>Fixed some deprecations.</li>
+				<li>Updated some libs.</li>
+			</ul>
+
+			<h3>Version 2.16.3</h3>
+			<ul>
+				<li>Fixed compatibility problems with IDEA 2023.1.</li>
+			</ul>
+
+			<h3>Version 2.16.2</h3>
+			<ul>
+				<li>Fixed some deprecations.</li>
+			</ul>
+
+			<h3>Version 2.16.1</h3>
+			<ul>
+				<li>Fixed some deprecations.</li>
+			</ul>
+
+			<h3>Version 2.16.0</h3>
+			<ul>
+				<li>Added experimental and untyped support for Swift.
+						Credits for implementation go to <a href="https://github.com/ytyubox">Tsungyu Yu</a>.</li>
+			</ul>
+
+			<h3>Version 2.15.0</h3>
+			<ul>
+				<li>Added support for LaTeX.
+						Credits for implementation go to <a href="https://github.com/fberlakovich">Felix Berlakovich</a>.</li>
+			</ul>
+
+			<h3>Version 2.14.0</h3>
+			<ul>
+				<li>Added support for reporting errors.</li>
+			</ul>
+
+			<h3>Version 2.13.2</h3>
+			<ul>
+				<li>Fixed bug #213: Cannot load local template file.</li>
+				<li>Deactivated error reporting again.</li>
+			</ul>
+
+			<h3>Version 2.13.1</h3>
+			<ul>
+				<li>Fixed bug #213: Cannot load local template file.</li>
+			</ul>
+
+			<h3>Version 2.13.0</h3>
+			<ul>
+				<li>Added support for reporting errors.</li>
+			</ul>
+
+			<h3>Version 2.12.5</h3>
+			<ul>
+				<li>Fixed two deprecations.</li>
+				<li>Updated dependencies.</li>
+			</ul>
+
+			<h3>Version 2.12.4</h3>
+			<ul>
+				<li>Fixed compatibility problems with IDEA 2022.2.</li>
+				<li>Updated dependencies.</li>
+			</ul>
+
+			<h3>Version 2.12.3</h3>
+			<ul>
+				<li>Fixed problem with gradle plugin.</li>
+			</ul>
+
+			<h3>Version 2.12.2</h3>
+			<ul>
+				<li>Fixed compatibility problems with IDEA 2021.3.</li>
+				<li>Fixed more deprecations.</li>
+			</ul>
+
+			<h3>Version 2.12.1</h3>
+			<ul>
+				<li>Added typed Rust support (for primitive types like integer, float, bool, ...).</li>
+			</ul>
+
+			<h3>Version 2.12.0</h3>
+			<ul>
+				<li>Added untyped support for Ruby.
+						Credits for implementation go to <a href="https://github.com/jimytc">Jim Chen</a>.</li>
+			</ul>
+
+			<h3>Version 2.11.7</h3>
+			<ul>
+				<li>Fixed more deprecations.</li>
+			</ul>
+
+			<h3>Version 2.11.6</h3>
+			<ul>
+				<li>Fixed more deprecations.</li>
+			</ul>
+
+			<h3>Version 2.11.5</h3>
+			<ul>
+				<li>Fixed some deprecations.</li>
+			</ul>
+
+			<h3>Version 2.11.4</h3>
+			<ul>
+				<li>Fixed some deprecations.</li>
+			</ul>
+
+			<h3>Version 2.11.3</h3>
+			<ul>
+				<li>Hopefully fixed bug #176: Plugin can't be enabled in Android Studio 4.1.</li>
+				<li>Fixed bug #175: IDEA log warning: Class constructor must not have parameters.
+						Credits for implementation go to <a href="https://github.com/ikopysov">ikopysov</a>.</li>
+				</li>
+			</ul>
+
+			<h3>Version 2.11.2</h3>
+			<ul>
+				<li>Fixed bug #161: Kotlin String to Toast - String is not detected.</li>
+				<li>Fixed bug #163: Kotlin template is only applied to method parameter instead of whole expression.</li>
+			</ul>
+
+			<h3>Version 2.11.1</h3>
+			<ul>
+				<li>Fixed bug #165: ANY doesn't work when function has parameter in Go.
+						Credits go to <a href="https://github.com/fnsne">fnsne</a>.</li>
+			</ul>
+
+			<h3>Version 2.11.0</h3>
+			<ul>
+				<li>Implemented #158: Add full type support for Kotlin.
+						Credits go to <a href="https://github.com/MaaxGr">MaaxGr</a> for implementing it.</li>
+			</ul>
+
+			<h3>Version 2.10.15</h3>
+			<ul>
+				<li>Fixed #157 by including commons-io and commons-lang3 again.</li>
+			</ul>
+
+			<h3>Version 2.10.14</h3>
+			<ul>
+				<li>Fixed that Java postfix templates did not work in the Community Edition.</li>
+			</ul>
+
+			<h3>Version 2.10.13</h3>
+			<ul>
+				<li>Replaced <code>org.reflections</code> library.</li>
+			</ul>
+
+			<h3>Version 2.10.12</h3>
+			<ul>
+				<li>Removed deprecated code.</li>
+				<li>Fixed a minor exception.</li>
+			</ul>
+
+			<h3>Version 2.10.11</h3>
+			<ul>
+				<li>Removed deprecated code.</li>
+			</ul>
+
+			<h3>Version 2.10.10</h3>
+			<ul>
+				<li>Removed deprecated code.</li>
+			</ul>
+
+			<h3>Version 2.10.9</h3>
+			<ul>
+				<li>Fixed #143: java.lang.NoClassDefFoundError: com/intellij/lang/javascript/psi/JSExpression.</li>
+			</ul>
+
+			<h3>Version 2.10.8</h3>
+			<ul>
+				<li>Fixed dependencies.</li>
+			</ul>
+
+			<h3>Version 2.10.7</h3>
+			<ul>
+				<li>Fixed #139: Cannot use $ in template variables -> escaping (\$) does not work.</li>
+			</ul>
+
+			<h3>Version 2.10.6</h3>
+			<ul>
+				<li>Fixed #160: NegativeArraySizeException on template expansion.</li>
+			</ul>
+
+			<h3>Version 2.10.5</h3>
+			<ul>
+				<li>Fixed text color of table in settings dialog.</li>
+				<li>Added hints in the settings dialog.</li>
+			</ul>
+
+			<h3>Version 2.10.4</h3>
+			<ul>
+				<li>Fixed a typo.</li>
+				<li>Updated plugin description.</li>
+			</ul>
+
+			<h3>Version 2.10.3</h3>
+			<ul>
+				<li>Fixed bug #127: Edit Variable Popup in "live template" settings does not open.</li>
+			</ul>
+
+			<h3>Version 2.10.2</h3>
+			<ul>
+				<li>Added plugin icon.</li>
+			</ul>
+
+			<h3>Version 2.10.1</h3>
+			<ul>
+				<li>Fixed bug #113: Completion doesn't work with non-empty string literals in PHP.</li>
+				<li>Fixed bug #115: Completion doesn't work if arg is nullable in PHP.</li>
+			</ul>
+
+			<h3>Version 2.10.0</h3>
+			<ul>
+				<li>Added support for basic Python types.</li>
+			</ul>
+
+			<h3>Version 2.9.2</h3>
+			<ul>
+				<li>Fixed bug #118: Chains of postfix completions in PyCharm do not work.</li>
+			</ul>
+
+			<h3>Version 2.9.1</h3>
+			<ul>
+				<li>Minor bug fix in new Scala import function.</li>
+			</ul>
+
+			<h3>Version 2.9.0</h3>
+			<ul>
+				<li>Added function to add Scala imports using <code>[IMPORT fully.qualified.ClassName]</code>.</li>
+				<li>Improved colors in settings dialog for default theme.</li>
+			</ul>
+
+			<h3>Version 2.8.3</h3>
+			<ul>
+				<li>Fixed a compatibility problem with IDEA 2019.1 Go and Kotlin plugins.</li>
+				<li>Fixed an exception in the plugin initialization.</li>
+			</ul>
+
+			<h3>Version 2.8.2</h3>
+			<ul>
+				<li>Fixed bug #97: Application of python templates failed.</li>
+				<li>Use always UTF-8 for template files.</li>
+			</ul>
+
+			<h3>Version 2.8.1</h3>
+			<ul>
+				<li>Fixed bug #94.</li>
+			</ul>
+
+			<h3>Version 2.8.0</h3>
+			<ul>
+				<li>Added support for Go.
+						Credits go to <a href="https://github.com/philipgriggs/">Philip Griggs</a> for implementing it.</li>
+			</ul>
+
+			<h3>Version 2.7.0</h3>
+			<ul>
+				<li>Added support for new Kotlin matching types: STRING_LITERAL, INT_LITERAL, FLOAT_LITERAL, CHAR_LITERAL.</li>
+			</ul>
+
+			<h3>Version 2.6.3</h3>
+			<ul>
+				<li>Underscores can be used in template names.</li>
+			</ul>
+
+			<h3>Version 2.6.2</h3>
+			<ul>
+				<li>Fixed bug #85: NoClassDefFoundError: com/intellij/psi/PsiType in PHPStorm and PyCharm.</li>
+			</ul>
+
+			<h3>Version 2.6.1</h3>
+			<ul>
+				<li>Fixed bug #84: NoClassDefFoundError: com/intellij/openapi/actionSystem/DataKeys.</li>
+			</ul>
+
+			<h3>Version 2.6.0</h3>
+			<ul>
+				<li>Added typed Groovy support.</li>
+			</ul>
+
+			<h3>Version 2.5.0</h3>
+			<ul>
+				<li>Added typed PHP support.</li>
+			</ul>
+
+			<h3>Version 2.4.0</h3>
+			<ul>
+				<li>Added untyped Rust support.</li>
+				<li>Added untyped Groovy support.</li>
+			</ul>
+
+			<h3>Version 2.3.1</h3>
+			<ul>
+				<li>Added compatibility to PHPStorm and PyCharm.</li>
+			</ul>
+
+			<h3>Version 2.3.0</h3>
+			<ul>
+				<li>Added untyped Python support.</li>
+				<li>Added untyped PHP support.</li>
+			</ul>
+
+			<h3>Version 2.2.0</h3>
+			<ul>
+				<li>Added typed SQL support.</li>
+			</ul>
+
+			<h3>Version 2.1.0</h3>
+			<ul>
+				<li>Made plugin compatible with IDEA 2018.3.</li>
+			</ul>
+
+			<h3>Version 2.0.7</h3>
+			<ul>
+				<li>Fixed a NullPointerException that occurred sometimes when opening a template file.</li>
+			</ul>
+
+			<h3>Version 2.0.6</h3>
+			<ul>
+				<li>Fixed that some templates had <i>[SKIP]</i> as template description.</li>
+			</ul>
+
+			<h3>Version 2.0.5</h3>
+			<ul>
+				<li>Added "Update now" button to settings dialog.</li>
+			</ul>
+
+			<h3>Version 2.0.4</h3>
+			<ul>
+				<li>Fixed bug #78: IllegalStateException: @NotNull method de/endrullis/idea/postfixtemplates/language/CptUtil.getAbsoluteVirtualFile must not return null.</li>
+			</ul>
+
+			<h3>Version 2.0.3</h3>
+			<ul>
+				<li>Added an option to skip the application of an postfix template for a given data type (just use "[SKIP]" as template code).</li>
+			</ul>
+
+			<h3>Version 2.0.2</h3>
+			<ul>
+				<li>You can now split your templates into multiple files.</li>
+				<li>You can import templates from URLs or local files and keep them automatically up-to-date.</li>
+				<li>Predefined web templates have been separated from user templates in order to allow smooth and effortless updates (no manually merging required anymore).</li>
+        <li>Sharing of templates is now much easier than before.</li>
+			</ul>
+
+			<h3>Version 1.8.8</h3>
+			<ul>
+				<li>Added new Java postfix templates: <code>.isEmpty</code>, <code>.isNotEmpty</code>, <code>.isBlank</code>, <code>.isNotBlank</code></li>
+				<li>Improved the Java postfix template <code>.reverse</code></li>
+				<li>Added 6 additional Java postfix templates for IDEA plugin developers.</li>
+			</ul>
+
+			<h3>Version 1.8.7</h3>
+			<ul>
+				<li>Added basic support for Dart (untyped templates only).
+				    Credits go to <a href="https://github.com/maksimr">Maksim Ryzhikov</a> for implementing it.</li>
+			</ul>
+
+			<h3>Version 1.8.6</h3>
+			<ul>
+				<li>Fixed bug #65: AssertionError in scratch files</li>
+			</ul>
+
+			<h3>Version 1.8.5</h3>
+			<ul>
+				<li>Improved some templates: <code>.sout</code> and <code>.soutv</code></li>
+				<li>Added some templates: <code>.toFile</code>, <code>.toURL</code>, and <code>.run</code></li>
+				<li>Fixed bug #63 (NullPointerException in application of JavaScript templates).</li>
+			</ul>
+
+			<h3>Version 1.8.4</h3>
+			<ul>
+				<li>Added new Java postfix templates: <code>.toOptional</code> and <code>.flatMap</code></li>
+				<li>Improved some Java postfix templates: <code>.toList</code> and <code>.toSet</code></li>
+			</ul>
+
+			<h3>Version 1.8.3</h3>
+			<ul>
+				<li>Added new Java postfix templates: <code>.for</code>, <code>.iter</code>, <code>.format</code>, <code>.stream</code>, and <code>.sout</code></li>
+				<li>Added new Scala postfix template: <code>.sout</code></li>
+				<li>Improved some predefined postfix templates.</li>
+				<li>Removed the default template suffix because of disadvantages in the ranking.</li>
+			</ul>
+
+			<h3>Version 1.8.2</h3>
+			<ul>
+				<li>Added a configurable template suffix to distinguish the templates of this plugin from the templates of IDEA and other plugins.</li>
+			</ul>
+
+			<h3>Version 1.8.1</h3>
+			<ul>
+				<li>Fixed that line breaks in template codes did not work anymore.</li>
+			</ul>
+
+			<h3>Version 1.8.0</h3>
+			<ul>
+				<li>New feature: Prepend or append "[USE_STATIC_IMPORTS]" to your Java template code to enable the use of static imports.</li>
+			</ul>
+
+			<h3>Version 1.7.0</h3>
+			<ul>
+				<li>New feature: Jump to template definition by pressing <i>Alt+Enter</i> and selecting <i>Edit ... template</i>.</li>
+			</ul>
+
+			<h3>Version 1.6.6</h3>
+			<ul>
+				<li>Fixed the bug that in IDEA 2018.1 only the first rule of each template takes effect.</li>
+			</ul>
+
+			<h3>Version 1.6.5</h3>
+			<ul>
+				<li>Fixed that Ctrl+S did not reload the templates when the template file is a symlink.</li>
+			</ul>
+
+			<h3>Version 1.6.4</h3>
+			<ul>
+				<li>Fixed the bug that templates with escape characters (e.g. "\"UTF-8\"") did not work as expected anymore.</li>
+			</ul>
+
+			<h3>Version 1.6.3</h3>
+			<ul>
+				<li>Made plugin compatible with IDEA 2018.1.</li>
+			</ul>
+
+			<h3>Version 1.6.2</h3>
+			<ul>
+				<li>Fixed that the dollar character ($) could not be used in template code.</li>
+			</ul>
+
+			<h3>Version 1.6.1</h3>
+			<ul>
+				<li>Added the predefined Java and Scala template .soutv</li>
+			</ul>
+
+			<h3>Version 1.6.0</h3>
+			<ul>
+				<li>Improved settings dialog: Added option to select one of the supported languages
+				    and to reset/merge your templates with the predefined ones.</li>
+				<li>Added more Java and Scala templates.</li>
+				<li>Restructured tools menu:
+					<ul>
+						<li>Removed language specific menu items like "Open Java Templates".</li>
+						<li>Added menu item "Open Settings / Upgrade Templates".</li>
+					</ul>
+				</li>
+			</ul>
+
+			<h3>Version 1.5.1</h3>
+			<ul>
+				<li>Added some predefined Scala templates.</li>
+				<li>Fixed, improved and added some predefined Java templates</li>
+			</ul>
+
+			<h3>Version 1.5.0</h3>
+			<ul>
+				<li>Added full support for Scala (typed templates).</li>
+			</ul>
+
+			<h3>Version 1.4.1</h3>
+			<ul>
+				<li>Added basic support for Scala (untyped templates only).</li>
+			</ul>
+
+			<h3>Version 1.4.0</h3>
+			<ul>
+				<li>Added the matching types to allow special treatments of literals:
+				    <ul>
+				      <li><code>NUMBER_LITERAL</code></li>
+				      <li><code>BYTE_LITERAL</code></li>
+				      <li><code>SHORT_LITERAL</code></li>
+				      <li><code>CHAR_LITERAL</code></li>
+				      <li><code>INT_LITERAL</code></li>
+				      <li><code>LONG_LITERAL</code></li>
+				      <li><code>FLOAT_LITERAL</code></li>
+				      <li><code>DOUBLE_LITERAL</code></li>
+				      <li><code>STRING_LITERAL</code></li>
+			      </ul>
+				</li>
+			</ul>
+
+			<h3>Version 1.3.0</h3>
+			<ul>
+				<li>Added option to add class/library dependencies to templates rules.
+				    For instance <code>"".val</code> expands now to
+				    <ul>
+				      <li><code>val s = "";</code> if Lombok is available, or to</li>
+				      <li><code>final String s = "";</code> if Lombok is not available.</li>
+			      </ul>
+				</li>
+				<li>Added 16 templates for IDEA developers to the predefined templates.</li>
+			</ul>
+
+			<h3>Version 1.2.3</h3>
+			<ul>
+				<li>Fixed #43: Could not use $ in default values of template variables.</li>
+			</ul>
+
+			<h3>Version 1.2.2</h3>
+			<ul>
+				<li>Improved code completion and error highlighting for JavaScript and Kotlin templates.</li>
+				<li>Added shortcut <i>Shift+Alt+P</i> to open the postfix templates of the current language.</li>
+				<li>Fixed #42: JavaScript and Kotlin postfix templates did not detect complete dot expressions.</li>
+			</ul>
+
+			<h3>Version 1.2.1</h3>
+			<ul>
+				<li>Added basic support for Kotlin (untyped templates only).</li>
+			</ul>
+
+			<h3>Version 1.2.0</h3>
+			<ul>
+				<li>Added JavaScript support.</li>
+			</ul>
+
+			<h3>Version 1.1.1</h3>
+			<ul>
+				<li>Changed plugin icon.</li>
+			</ul>
+
+			<h3>Version 1.1.0</h3>
+			<ul>
+				<li>Added matching type <code>CLASS</code> to detect class references.</li>
+				<li>Added postfix template <code>.new</code> which can be applied to class references.</li>
+			</ul>
+
+			<h3>Version 1.0.2</h3>
+			<ul>
+				<li>Fixed that templates could not be applied to partial expressions or method parameters.</li>
+				<li>Fixed that each template started with a dot in the completion dialog.</li>
+				<li>Fixed bug #33: Read access is allowed from event dispatch thread or inside read-action only.</li>
+			</ul>
+    ]]>
+	</change-notes>
+
+	<!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+	<idea-version since-build="233.6745.305"/>
+
+	<!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+			 on how to target different products -->
+	<depends>com.intellij.modules.lang</depends>
+	<depends optional="true" config-file="withJavaModule.xml">com.intellij.modules.java</depends>
+	<depends optional="true" config-file="withScalaModule.xml">org.intellij.scala</depends>
+	<depends optional="true" config-file="withKotlinModule.xml">org.jetbrains.kotlin</depends>
+	<depends optional="true" config-file="withDartModule.xml">Dart</depends>
+	<depends optional="true" config-file="withPythonModule.xml">com.intellij.modules.python</depends>
+	<depends optional="true" config-file="withPhpModule.xml">com.jetbrains.php</depends>
+	<depends optional="true" config-file="withGroovyModule.xml">org.intellij.groovy</depends>
+	<depends optional="true" config-file="withGoModule.xml">org.jetbrains.plugins.go</depends>
+	<depends optional="true" config-file="withRubyModule.xml">com.intellij.modules.ruby</depends>
+	<depends optional="true" config-file="withLatexModule.xml">nl.rubensten.texifyidea</depends>
+	<depends optional="true" config-file="withJavaScriptModule.xml">JavaScript</depends>
+	<depends optional="true" config-file="withDatabaseModule.xml">com.intellij.database</depends>
+	<depends optional="true" config-file="withSwiftModule.xml">Swift</depends>
+
+	<extensions defaultExtensionNs="com.intellij">
+		<notificationGroup id="Custom Postfix Templates" displayType="STICKY_BALLOON"/>
+
+		<!--
+		<codeInsight.template.postfixTemplateProvider language="C#"
+		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.csharp.CsharpPostfixTemplateProvider"/>
+		-->
+
+		<applicationConfigurable id="Settings.CustomPostfixTemplates"
+		                         bundle="de.endrullis.idea.postfixtemplates.bundle.PostfixTemplatesBundle"
+		                         groupId="editor"
+		                         nonDefaultProject="true"
+		                         key="settings.plugin.name"
+		                         instance="de.endrullis.idea.postfixtemplates.settings.CptPluginConfigurable"/>
+		<applicationService serviceImplementation="de.endrullis.idea.postfixtemplates.settings.CptApplicationSettings"/>
+
+		<!-- Postfix templates file type and language -->
+		<fileType name="Postfix templates file type"
+		          implementationClass="de.endrullis.idea.postfixtemplates.language.CptFileType"
+		          fieldName="INSTANCE" language="CPT" extensions="postfixTemplates"/>
+		<lang.parserDefinition language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptParserDefinition"/>
+		<lang.syntaxHighlighterFactory language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptSyntaxHighlighterFactory"/>
+		<colorSettingsPage implementation="de.endrullis.idea.postfixtemplates.language.CptColorSettingsPage"/>
+		<annotator language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptAnnotator"/>
+		<completion.contributor language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptCompletionContributor" order="first" id="compositieAttributeValues"/>
+		<!--
+		<psi.referenceContributor implementation="de.endrullis.idea.postfixtemplates.language.CptReferenceContributor"/>
+		-->
+		<gotoSymbolContributor implementation="de.endrullis.idea.postfixtemplates.language.CptChooseByNameContributor"/>
+		<lang.psiStructureViewFactory language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptStructureViewFactory"/>
+		<lang.formatter language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptFormattingModelBuilder"/>
+		<codeStyleSettingsProvider implementation="de.endrullis.idea.postfixtemplates.language.CptCodeStyleSettingsProvider"/>
+		<langCodeStyleSettingsProvider implementation="de.endrullis.idea.postfixtemplates.language.CptLanguageCodeStyleSettingsProvider"/>
+		<lang.commenter language="CPT" implementationClass="de.endrullis.idea.postfixtemplates.language.CptCommenter"/>
+		<todoIndexer filetype="CPT file" implementationClass="de.endrullis.idea.postfixtemplates.language.CptTodoIndexer"/>
+		<defaultLiveTemplates file="liveTemplates/CustomPostfixTemplates"/>
+		<liveTemplateContext contextId="CPT" implementation="de.endrullis.idea.postfixtemplates.language.CptContext"/>
+		<lookup.actionProvider implementation="de.endrullis.idea.postfixtemplates.language.CptLookupActionProvider"/>
+		<postStartupActivity implementation="de.endrullis.idea.postfixtemplates.MyPostStartupActivity"/>
+		<errorHandler implementation="de.endrullis.idea.postfixtemplates.SentryErrorReporter"/>
+		<typedHandler implementation="de.endrullis.idea.postfixtemplates.actions.EditorTypedHandlerDelegate"/>
+		<intentionAction>
+			<className>de.endrullis.idea.postfixtemplates.intention.OverrideTemplateRuleIntention</className>
+			<category>Custom postfix templates</category>
+		</intentionAction>
+	</extensions>
+
+	<actions>
+		<!-- Add your actions here -->
+		<group text="Custom _Postfix Templates" popup="true" id="Cpt.Menu" icon="/de/endrullis/idea/postfixtemplates/icons/cpt-icon.png">
+			<add-to-group group-id="ToolsMenu" anchor="last"/>
+		</group>
+
+		<action text="Edit Templates of Current Language" id="Cpt.OpenTemplates" class="de.endrullis.idea.postfixtemplates.actions.OpenTemplatesAction">
+			<add-to-group group-id="Cpt.Menu"/>
+			<keyboard-shortcut first-keystroke="shift alt P" keymap="$default"/>
+		</action>
+		<action text="Open Settings / Upgrade Templates" id="Cpt.OpenSettings" class="de.endrullis.idea.postfixtemplates.actions.OpenSettingsAction">
+			<add-to-group group-id="Cpt.Menu"/>
+			<keyboard-shortcut first-keystroke="ctrl shift alt P" keymap="$default"/>
+		</action>
+	</actions>
+
+</idea-plugin>
