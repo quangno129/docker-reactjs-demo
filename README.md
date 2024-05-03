@@ -1,351 +1,445 @@
-# Custom Postfix Templates for Intellij IDEA
+<h1 align="center">👻 Snapchat Clone</h1>
 
-**Custom Postfix Templates** is an Intellij IDEA plugin that allows you to define your own custom [postfix completion templates](https://blog.jetbrains.com/idea/2014/03/postfix-completion/).
-At the moment it supports the following programming languages with : Java, Scala, SQL, PHP, Go, Groovy, Python, LaTeX, Kotlin (untyped templates), Dart (untyped templates), JavaScript (untyped templates), and Rust (untyped templates).
+<div align="center">
+  <img src="./public/readme/tech-logos/react.svg" width="55" alt="React" />
+  <img src="./public/readme/tech-logos/redux.svg" width="55" alt="Redux" />
+  <img
+    src="./public/readme/tech-logos/typescript.svg"
+    width="55"
+    alt="TypeScript"
+  />
+  <img
+    src="./public/readme/tech-logos/javascript.svg"
+    width="55"
+    alt="JavaScript"
+  />
+  <img src="./public/readme/tech-logos/sass.svg" width="55" alt="Sass" />
+  <img src="./public/readme/tech-logos/webpack.svg" width="55" alt="Webpack" />
+  <img src="./public/readme/tech-logos/gulp.svg" width="35" alt="gulp" />
+  <img src="./public/readme/tech-logos/cypress.svg" width="55" alt="Cypress" />
+  <img src="./public/readme/tech-logos/jest.svg" width="55" alt="Jest" />
+  <img src="./public/readme/tech-logos/eslint.svg" width="55" alt="Eslint" />
+  <img
+    src="./public/readme/tech-logos/prettier.svg"
+    width="55"
+    alt="Prettier"
+  />
+  <img
+    src="./public/readme/tech-logos/storybook.svg"
+    width="50"
+    alt="Storybook"
+  />
+</div>
 
-## So what is the difference to IDEA's postfix templates?
+<h2 align="center">
+  <a href="https://towhidkashem.github.io/snapchat-clone/">[LIVE APP]</a>
+</h2>
 
-Since IDEA 2018 you are now able to define your own postfix templates in the settings UI (*Editor → General → Postfix Templates*). However, this is a pretty new feature and it's less functional than this plugin. Here are some of the **advantages of this plugin**:
+<img src="public/readme/filters.gif" alt="Preview" />
 
-* You can **define different template rules for the same template name**, e.g. .toList should behave differently for arrays and for sets.
-* You can **use template variables** (e.g. `$varName$`) which are filled by the user while applying the template.
-* You can **use live template macros** to automatically fill some of the template variables (e.g. `$var:suggestVariableName()$`) as well as you can define default values.
-* You can **restrict the availability of templates or template rules to the availability of certain classes or libraries** (e.g. expand `"test".val` to `val s = "test"` if Lombok is available).
-* It allows you to **use static imports instead of class imports** (e.g. `array.toList` can be expanded to `asList(array)` instead of `Arrays.asList(array)` if you add `[USE_STATIC_IMPORTS]` to the rule).
-* It **comes with more than 500 editable postfix templates** with more than 700 template rules, e.g.
-  * `string.toInt` → `Integer.parse(string)`
-  * `array.toList` → `Arrays.asList(array)`
-  * `file.lines` → `Files.readAllLines(file.toPath(), Charset.forName("UTF-8"))`
-  * `file.getName().val` → `final String name = file.getName();`
-* The text based format for defining your templates allows you to **easily share** them via copy and paste.
+<h3 align="center">
+  <a href="https://towhidkashem.github.io/snapchat-clone/">[Live App]</a>
+  &nbsp;&bull;&nbsp;
+  <a href="https://www.youtube.com/embed/aRS88v-duKg?autoplay=1">[Video Demo]</a>
+</h3>
 
-## Screencast
+<h2>⚡️Breakdown</h2>
 
-![Screen Cast](https://github.com/xylo/intellij-postfix-templates/blob/master/videos/vid1/vid1.png)
+<ul>
+  <li>
+    Built with <code>React</code>
+    <ul>
+      <li>Only functional components using hooks</li>
+      <li>
+        Folder structure:
+        <ul>
+          <li>Flat - no greater than one level deep</li>
+          <li>
+            Modular - each folder contains all the relevant files needed to make
+            up a particular feature (components, styles, tests, actions, etc).
+            Having everything close at hand reduces cognitive load and deleting
+            a folder removes the feature entirely from the code base without
+            having to worry about left over code
+          </li>
+          <li>
+            Organized semantically by Feature (not by the traditional
+            "components/containers" model), this way of reasoning is more human
+            friendly
+          </li>
+          <li><code>components</code> directory houses all shared components</li>
+        </ul>
+      </li>
+      <li>Custom component library showcased in <code>Storybook</code></li>
+      <li>Relatively few prod dependencies</li>
+    </ul>
+  </li>
+  <li>
+    Global state management via <code>Redux</code>
+    <ul>
+      <li>
+        Uses <code>Redux Toolkit</code> - the official recommended
+        approach to using Redux which drastically cuts the need to write
+        boilerplate code
+      </li>
+      <li>
+        A single <code>store.ts</code> file for each feature contains all actions and
+        reducers (the creators are auto generated by RTK)
+      </li>
+      <li>Flat state tree avoids deeply nested properties</li>
+      <li>
+        RTK has built-in support for <code>ImmerJS</code> which allows state to
+        be safely mutated removing the need for messy object copying via spread
+        operators
+      </li>
+      <li>
+        Uses the <code>useDispatch</code> and <code>useSelector</code> hooks
+        provided by <code>react-redux</code> for accessing state values and
+        dispatching actions over the more verbose <code>connect</code> method
+      </li>
+      <li>Uses <code>thunk</code> for async operations</li>
+      <li>
+        Integrates the powerful
+        <code>Redux Devtools Extension</code> for ease of development
+      </li>
+    </ul>
+  </li>
+  <li>
+    Styled with <code>SASS</code>
+    <ul>
+      <li>
+        Each view's set of rules are scoped to a single parent element via
+        nesting to avoid style clashes
+      </li>
+      <li>
+        Use of variables, extendables and mixins to keep things DRY and uniform
+      </li>
+    </ul>
+  </li>
+  <li>
+    Written in <code>Typescript</code>
+    <ul>
+      <li>
+        To let the compiler catch bugs at build time instead of letting users
+        catch them at runtime!
+      </li>
+    </ul>
+  </li>
+  <li>Unit tested with <code>Jest</code> and <code>Enzyme</code></li>
+  <li>
+    End-to-end tested with <code>Cypress</code>
+    <ul>
+      <li>
+        Selectors use <code>data</code> attributes instead of classes or ids as
+        these can change often causing tests to break
+      </li>
+      <li>
+        Integration suite covers all essential feature happy paths
+      </li>
+    </ul>
+  </li>
+  <li>Linted using <code>Eslint</code></li>
+  <li>
+    Code is auto formatted using <code>Prettier</code> (ran as a pre-commit git
+    hook) before it gets pushed to the repo
+  </li>
+  <li>
+    Feels close to a native app if you "add to homescreen" on mobile
+  </li>
+</ul>
 
-## Download
+<h2>💿 Installation</h2>
 
-You can download the plugin **Custom Postfix Templates** via *Settings → Plugins → Browse Repositories*.
+<p>Run these commands in the terminal:</p>
 
-## Usage
+<ol>
+  <li>
+    <code>$ git clone git@github.com:TowhidKashem/snapchat-clone.git</code>
+  </li>
+  <li><code>$ cd snapchat-clone</code></li>
+  <li>
+    <code>$ npm install</code>
+    <ul>
+      <li>
+        This will:
+        <ul>
+          <li>Install the dependencies in package.json</li>
+          <li>
+            Checkout
+            <a href="https://github.com/jeeliz/jeelizFaceFilter">jeelizFaceFilter</a>
+            package (used for the filters) and set it to the last version this
+            project was tested and confirmed to work with
+          </li>
+          <li>
+            Run <code>gulp</code> to concatenate, minify and transpile the files
+            located in <code>public/filters/source/*.js</code> into a single
+            file called <code>filters.min.js</code>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    This part is optional but strongly recommended, without it you won't be able
+    to view any of the snap map features:
+    <ul>
+      <li>
+        Make a Mapbox account and
+        <a
+          href="https://docs.mapbox.com/help/glossary/access-token/"
+          target="_blank"
+          >get a free API key</a
+        >
+      </li>
+      <li>
+        In the <code>.env</code> file enter your new API key, for example:
+        <ul>
+          <li>
+            Before:
+            <code>REACT_APP_MAP_BOX_API_KEY=REPLACE_WITH_API_KEY</code>
+          </li>
+          <li>After: <code>REACT_APP_MAP_BOX_API_KEY=xy.abc123</code></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <code>$ npm start</code>
+    <ul>
+      <li>
+        The app should open automatically in your browser usually at
+        <code>https://localhost:3000/</code>
+        <ul>
+          <li>
+            In Chrome you will receive a "Your connection is not private"
+            warning
+            <ul>
+              <li>
+                Click "Advanced" &gt; "Proceed to localhost (unsafe)"
+                <ul>
+                  <li>
+                    You'll get this warning because the app uses a self signed
+                    <code>https</code> certificate. The
+                    <code>getUserMedia</code> API used by the camera requires
+                    the <code>https</code> protocol so we run the dev server in
+                    https mode.
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            After this you will be prompted to give access to your webcam, click
+            "Allow"
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <br />
+    <table>
+      <tbody>
+        <tr>
+          <th align="center">
+            Step 1
+          </th>
+          <th align="center">
+            Step 2
+          </th>
+          <th align="center">
+            Step 3
+          </th>
+        </tr>
+        <tr>
+          <td align="center" valign="middle">
+            <img src="public/readme/step1.png" />
+          </td>
+          <td align="center" valign="middle">
+            <img src="public/readme/step2.png" />
+          </td>
+          <td align="center" valign="middle">
+            <img src="public/readme/camera.png" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>You're all set! 🎉</li>
+</ol>
 
-The plugin comes with a predefined set of templates for Java and Scala (see below) which can be immediatly applied in Java/Scala files.
-For instance, write 
+<table>
+  <tbody>
+    <tr>
+      <th colspan="2" align="left">
+        <h2>🦮 Guides</h2>
+      </th>
+    </tr>
+    <tr>
+      <td align="center" valign="top">
+        <img src="public/readme/guide.png" />
+      </td>
+      <td valign="top">
+        Not all the buttons are actionable, many of them are there just for show
+        since this is a minimal demo. This
+        <a
+          href="https://www.youtube.com/embed/aRS88v-duKg?autoplay=1"
+          target="_blank"
+          >video</a
+        >
+        shows all the things you can currently do. Where it's not obvious which
+        buttons actually work I added red box-shadows as guides.
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-    "1".toInt
-    
-in a Java file.  If the completion popup does not automatically show up, press *Ctrl+SPACE*.
-Select the `.toInt` template and see how it is expanded.
+<table>
+  <tbody>
+    <tr>
+      <th colspan="2" align="left">
+        <h2>🛠 Tooling</h2>
+      </th>
+    </tr>
+    <tr>
+      <td valign="top">
+        <img src="public/readme/storybook.png" />
+        <p>
+          <strong>Storybook</strong> is used to showcase the app's custom
+          component library. You can run Storybook using the command
+          <code>npm run storybook</code>
+        </p>
+      </td>
+      <td valign="top">
+        <img src="public/readme/redux-ext.png" />
+        <p>
+          <strong>Redux Devtools Extension</strong> is implemented in the app,
+          it makes things like viewing the state tree, state flow and debugging
+          much easier, to use it you need to install the browser extension
+          <a
+            href="https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en"
+            >here</a
+          >
+          or
+          <a
+            href="https://addons.mozilla.org/en-US/firefox/addon/reduxdevtools/"
+            >here</a
+          >
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-And if you want to see the template definition, just press *Alt+ENTER* in the completiion popup and select *Edit '.toInt' template*.
+<h2>🧪 Testing</h2>
 
-## Kinds of template files
+<table>
+  <tbody>
+    <tr>
+      <th colspan="2" align="left">
+        <strong>End-to-End Tests</strong>
+      </th>
+    </tr>
+    <tr>
+      <td align="center" valign="top">
+        <a href="https://www.youtube.com/embed/tNrx6NlTYKI?autoplay=1">
+          <img src="public/readme/cypress.png" width="600" />
+        </a>
+        <p>👆Click to see all tests run</p>
+      </td>
+      <td valign="top">
+        <ul>
+          <li>
+            All e2e tests are located in
+            <code>cypress/integration/*.spec.ts</code>
+            <ul>
+              <li>
+                To run these first make sure the dev server is up and running
+                via <code>npm start</code>, then use the command
+                <code>npm run e2e</code>
+              </li>
+              <li>
+                This will open the Cypress electron app. Click "Run all specs"
+                at the top right, you'll then get a Chrome instance and see all
+                the tests being run
+              </li>
+            </ul>
+          </li>
+          <li>
+            Alternatively you can run the test suite in the terminal using the
+            command <code>npm run e2e-headless</code>. This command still
+            generates videos in <code>cypress/videos/*.mp4</code> of the tests
+            should you need them
+          </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-There are three different types of template files:
-* User template files: use them to define your own templates and/or override local or web template rules
-* Local template files: loaded from the local file system, read-only, and updated automatically when an IDEA project is opened
-* Web template files: loaded from the web, read-only, and updated automatically once a day
+<table>
+  <tbody>
+    <tr>
+      <th colspan="2" align="left">
+        <strong>Unit Tests</strong>
+      </th>
+    </tr>
+    <tr>
+      <td valign="top">
+        <img src="public/readme/unit.png" width="400" />
+      </td>
+      <td valign="top">
+        <ul>
+          <li>
+            All the shared components in the <code>components</code> directory have
+            unit tests inside their respective folders. They end with a
+            <code>*.test.tsx</code> extension.
+          </li>
+          <li>
+            To run the unit test suite use the command
+            <code>npm run test</code>
+          </li>
+          <li>
+            These tests are also automatically run on each commit, if there are
+            any failures the commit will also fail
+          </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-## Order of template files/rules
+<h2>📝 Misc Notes</h2>
 
-Template rules are applied in a first-come-first-serve manner, i.e., more specific rules/files should be placed above more general rules/files.
-Reorder files in the tree by selecting them and by using the up/down buttons.
+<ul>
+  <li>
+    If you want to make changes to the filter files located in
+    <code>public/filters/src/*.js</code>, run the command
+    <code>npm run gulp watchJS</code> so that your changes get picked up
+  </li>
+  <li>
+    The project's <code>baseUrl</code> is set to the <code>src</code> directory
+    in tsconfig so you can use clean import paths like
+    <code>import Foo from 'components/Foo';</code> instead of messy ones like
+    <code>import Foo from '../../components/Foo';</code>. You can also use these in
+    the SASS files, e.g. <code>@import '~styles/foo';</code>
+  </li>
+  <li>
+    This is a purely front end demo, the "API" is nothing but a bunch of json
+    files with hard coded dummy data, they're located in
+    <code>/public/api/*.json</code>
+  </li>
+</ul>
 
-## Predefined web templates files
+<h2>⚠️ Contributing</h2>
 
-The plugin comes with a set of so-called "web template files" which provide in total [more than 200 useful templates](https://github.com/xylo/intellij-postfix-templates/wiki). 
-While web template files are read-only and shall not be edited by the user because of automatic updates, you can still edit or deactivate templates of these files.
+<p>
+  Please note I won't be accepting PR's on this project since it's part of my
+  personal portfolio. You're more than welcome to fork and maintain your own
+  version if you like!
+</p>
 
-To change or deactivate a predefined template you just have to start the template name completion with *Ctrl+Space* and then press *ALT+Enter* and select the third item (*Edit .TEMPLATE_NAME template*).  The corresponding web template file is opened and you see the definition of the template rule.  Since you cannot this template file directly you have to override the template rule by pressing *Alt+Enter* and selecting *Override template rule*.  This overriding works in a way that your template rule needs to be loaded before the predefined template gets loaded.  This is done by adding your rule to a user template file which is placed above the predefined web template file in the plugin settings.  In case that you don't have a user template file which is loaded before, you are offered to create one.  After you selected an existing user template or created a new one the template rule to override is automatically added to this file and you can start adapting it.  To deactivate a template rule, replace the rigth side of the rule with *[SKIP]*. 
+<h2>⚖️ License</h2>
 
-## Edit the templates
-
-Press *Shift+Alt+P* (or go to menu *Tools → Custom Postfix Templates → Edit Templates of Current Language*)
-to open the custom postfix templates for the programming language in your current editor.
-Here you can easily change, remove, or add new templates matching your needs.
-Note that you have to save the template file explicitly (via *Ctrl+S*) in order to update the postfix templates in the IDE.
-
-### Template definitions
-
-The file may contain multiple template definitions of the form:
-```
-.TEMPLATE_NAME : TEMPLATE_DESCRIPTION
-    TEMPLATE_RULE1
-    TEMPLATE_RULE2
-    ...
-```
-Each template definition consists of a template name, a template description and an arbitrary number of template rules.  The template name is used as key in the code completion and the template description is shown as hint in the code completion popup.  The template rules define on which types the template can be applied and how the application is performed.
-
-### Simple template rules
-
-A simple template rule has the form
-```
-    MATCHING_TYPE  →  TEMPLATE_CODE
-```
-whereas
-* *[`MATCHING_TYPE`](#matching_type)* defines the type the template can be applied to, and
-* *[`TEMPLATE_CODE`](#template_code)* defines how the template is applied (how the expression is replaced).
-
-#### MATCHING_TYPE
-
-The options for *MATCHING_TYPE* may differ from programming language to programming language:
-* In **Java** the *MATCHING_TYPE* can be either a Java class name or one of the following special types:
-  * `ANY` - any expression
-  * `VOID` - any void expression
-  * `NON_VOID` - any non-void expression
-  * `ARRAY` - any Java array
-  * `BOOLEAN` - boxed or unboxed boolean expressions
-  * `ITERABLE_OR_ARRAY` - any iterable or array
-  * `NOT_PRIMITIVE` - any non-primitive value
-  * `NUMBER` - any boxed or unboxed number
-  * `BYTE` - a boxed or unboxed byte value
-  * `SHORT` - a boxed or unboxed short value
-  * `CHAR` - a boxed or unboxed char value
-  * `INT` - a boxed or unboxed int value
-  * `LONG` - a boxed or unboxed long value
-  * `FLOAT` - a boxed or unboxed float value
-  * `DOUBLE` - a boxed or unboxed double value
-  * `NUMBER_LITERAL` - any number literal
-  * `BYTE_LITERAL` - a byte literal
-  * `SHORT_LITERAL` - a short literal
-  * `CHAR_LITERAL` - a char literal
-  * `INT_LITERAL` - an int literal
-  * `LONG_LITERAL` - a long literal
-  * `FLOAT_LITERAL` - a float literal
-  * `DOUBLE_LITERAL` - a double literal
-  * `STRING_LITERAL` - a String literal
-  * `CLASS` - any class reference
-* In **Scala** the *MATCHING_TYPE* can be either a Java class name or one of the following special types:
-  * `ANY` - any expression
-  * `VOID` - any void (Unit) expression
-  * `NON_VOID` - any non-void (non-Unit) expression
-  * `BOOLEAN` - scala.Boolean or java.lang.Boolean
-  * `NUMBER` - any Scala or Java number value
-  * `BYTE` - scala.Byte or java.lang.Byte
-  * `SHORT` - scala.Short or java.lang.Short
-  * `CHAR` - scala.Char or java.lang.Char
-  * `INT` - scala.Int or java.lang.Integer
-  * `LONG` - scala.Long or java.lang.Long
-  * `FLOAT` - scala.Float or java.lang.Float
-  * `DOUBLE` - scala.Double or java.lang.Double
-* In **SQL** the *MATCHING_TYPE* can be either a Java class name or one of the following special types:
-  * `ANY` - any expression
-  * `UNKNOWN` - unknown expression
-  * `DEFAULT` - ?
-  * `INTEGER` - integer expression
-  * `REAL` - real expression
-  * `STRING` - string expression
-  * `BOOLEAN` - boolean expression
-  * `DATE_TIME` - date-time expression
-  * `DATE` - date expression
-  * `TIME` - time expression
-  * `TIMESTAMP` - timestamp expression
-  * `INTERVAL` - interval expression
-  * `BYTES` - bytes expression
-  * `REFERENCE` - ?
-  * `ARRAY` - array expression
-  * `COLLECTION` - collection expression
-  * `TABLE` - table reference
-  * `RECORD` - ?
-  * `SETO` - ?
-* In **PHP** the *MATCHING_TYPE* can be either a PHP class name or one of the following special types:
-  * `ANY` - any expression
-  * `empty`
-  * `null`
-  * `string`
-  * `boolean`
-  * `int`
-  * `float`
-  * `object`
-  * `callable`
-  * `resource`
-  * `array`
-  * `iterable`
-  * `number`
-  * `void`
-  * `unset`
-  * `static`
-  * `\Closure`
-  * `\Exception`
-  * `\Throwable`
-* In **Go** the *MATCHING_TYPE* can be one of the following special types:
-  * `ANY` - any expression
-  * `ARRAY` - any array
-  * `BOOLEAN` - any boolean expression
-  * `STRING` - any string expression
-  * `INT` - any integer expression
-  * `INT64` - any 64 bit integer expression
-  * `UINT` - any unsigned integer expression
-  * `FLOAT` - any floating point expression
-  * `FLOAT32` - any 32 bit floating point expression
-  * `FLOAT64` - any 64 bit floating point expression
-  * `BYTESLICE` - any byte slice expression
-  * `ERROR` - any error expression
-  * `COMPLEX` - ???
-  * `NIL` - any expression of type Nil
-* In **Groovy** the *MATCHING_TYPE* can be either a Java/Groovy class name or one of the following special types:
-  * `ANY` - any expression
-  * `ARRAY` - any Java array
-  * `BOOLEAN` - boxed or unboxed boolean expressions
-  * `ITERABLE_OR_ARRAY` - any iterable or array
-  * `NUMBER` - any boxed or unboxed number
-  * `BYTE` - a boxed or unboxed byte value
-  * `SHORT` - a boxed or unboxed short value
-  * `CHAR` - a boxed or unboxed char value
-  * `INT` - a boxed or unboxed int value
-  * `LONG` - a boxed or unboxed long value
-  * `FLOAT` - a boxed or unboxed float value
-  * `DOUBLE` - a boxed or unboxed double value
-  * `CLASS` - any class reference
-* In **Python** the *MATCHING_TYPE* can be one of the following special types:
-  * `ANY` - any expression
-	* `object`
-	* `list`
-	* `dict`
-	* `set`
-	* `tuple`
-	* `int`
-	* `float`
-	* `complex`
-	* `str`
-	* `unicode`
-	* `bytes`
-	* `bool`
-	* `classmethod`
-	* `staticmethod`
-	* `type`
-* In **Kotlin** the *MATCHING_TYPE* has to be `ANY`.
-* In **Dart** the *MATCHING_TYPE* has to be `ANY`.
-* In **JavaScript** the *MATCHING_TYPE* has to be `ANY`.
-* In **Rust** the *MATCHING_TYPE* has to be `ANY`
-* In **Latex** the *MATCHING_TYPE* can be one of the following types:
-  * `ANY` - any expression in any context
-  * `TEXT` - any expression that is *not* within a math environment
-  * `MATH` - any expression that *is* within a math environment
-
-#### TEMPLATE_CODE
-
-The *TEMPLATE_CODE* can be any text which may also contain template variables used as placeholder.
-* Simple template variables have the format `$NAME$`.
-* The following template variables have a special meaning:
-  * `$expr$` - the expression the template shall be applied to
-  * `$END$` - the final cursor position after the template application
-* All other variables will be replaced interactively during the template expansion.
-* If you want to change the order of variables, set default values or use live template macros for filling the variables automatically, you can use the following variable format:
-  ```
-  $NAME#NO:EXPRESSION:DEFAULT_VALUE$
-  ```
-  * *NAME* - name of the variable; use a `*` at the end of the name to skip user interaction
-  * *NO* (optional) - number of the variable (defining in which order the variables are expanded)
-  * *EXPRESSION* (optional) - a live template macro used to generate a replacement (e.g. `suggestVariableName()`)
-  * *DEFAULT_VALUE* (optional) - a default value that may be used by the macro
-* If you want to create multi-line templates you can use a backslash (`\`) at the end of a line to indicate that the template code continues at the next line.
-
-#### Template Examples
-
-* Artificial example showing variable reordering, variable reusage, interaction skipping, macros, and default values:
-  ```
-  .test : test
-      NON_VOID → "$user*#1:user()$: $second#3:className()$ + $first#2::"1st"$ + $first$" + $expr$
-  ```
-* Real world example: Write a variable to the debug log, including the developer name, the class name, and method name:
-  ```
-  .logd : log a variable
-      NON_VOID → Log.d("$user*:user():"MyTag"$", "$className*:className()$ :: $methodName*:methodName()$): $expr$="+$expr$);
-  ```
-* Multi-line template:
-  ```
-  .for : iterate over ...
-      ITERABLE_OR_ARRAY → for ($ELEMENT_TYPE:iterableComponentType(expr):"java.lang.Object"$ $VAR:suggestVariableName()$ : $expr$) {\
-        $END$\
-      }
-  ```
-
-While writing the templates you can use the code completion for completing class names, variable names, template macros and arrows (→).
-
-### Advanced template rules
-
-In the chapter above some options have been omitted for simplicity.  If you need more functionality here is the full format of template rules including two optional parameters:
-```
-    MATCHING_TYPE [REQUIRED_CLASS]  →  TEMPLATE_CODE [FLAG]
-```
-* *REQUIRED_CLASS* (optional) is a name of a class that needs to be available in the module to activate the template rule (see next section for a detailed explaination)
-* *FLAG* (optional) can be one of the following flags:
-  * [`SKIP`](#skip) - skips the rule
-  * [`USE_STATIC_IMPORTS`](#use_static_imports) - adds static method imports automatically if possible (Java only)
-  * [`IMPORT` ...](#import) - adds an import to the file header (Scala only)
-
-#### Writing library specific template rules via REQUIRED_CLASS
-
-Sometimes you may want to write library specific template rules, i.e. rules that shall be only applied when a certain library is included in the project.  For instance, take a look at the `.val` template provided with this plugin:
-```
-.val : extract as value
-	NON_VOID [lombok.val]    →  val $var:suggestVariableName()$ = $expr$;
-	NON_VOID                 →  final $type*:expressionType(expr))$ $var:suggestVariableName()$ = $expr$;
-```
-It can be applied to any non-void expression and expands either to
-```
-val myVar = myExpression;
-```
-if lombok is available, or to
-```
-final MyType myVar = myExpression;
-```
-if you're using Java without lombok.
-
-In this exmaple template the `[lombok.val]` part after the matching type is used to restrict the rule appliction to those cases where the class `lombok.val` is available in the class path.
-
-In general you can use any class name between the square brackets you want to define a restriction on.
-
-#### FLAGs
-
-##### SKIP
-
-You can use the `[SKIP]` flag for deactivating the template rule for a given matching type.
-
-Example:
-```
-.sort : sort naturally
-	de.endrullis.lazyseq.LazySeq  →  [SKIP]
-	java.util.List                →  java.util.Collections.sort($expr$)
-```
-
-In this example a postfix template `.sort` is defined.
-The first rule tells the plugin that there shall be no completition for expressions of type `LazySeq`.
-The second rule defines how `List` expressions shall be completed.
-
-##### USE_STATIC_IMPORTS
-
-If you tag a template rule for Java with `[USE_STATIC_IMPORTS]` all static methods that are used will be automatically imported and your code gets more compact.  For instance, lets take the following template rule:
-```
-.toList : convert to List
-	ARRAY  →  java.util.Arrays.asList($expr$) [USE_STATIC_IMPORTS]
-```
-Since the rule is tagged with `[USE_STATIC_IMPORTS]` expanding of `array.toList` does not lead to `Arrays.asList(array)` but to `asList(array)` and the following line is added to your import statements:
-```
-import static java.util.Arrays.asList;
-```
-
-##### IMPORT
-
-If you tag a template rule for Scala with `[IMPORT FULLY_QUALIFIED_CLASSNAME]` the given class (or method) import is automatically added to the file header when the template gets applied:
-```
-.printStream : get PrintStream
-	java.io.File  →  new PrintStream($expr$)   [IMPORT java.io.PrintStream]
-```
-Note that you can use the `IMPORT` flag multiple times.
-
-## Update templates and open plugin settings
-
-Go to *Settings → Editor → Custom Postfix Templates* or *Tools → Custom Postfix Templates → Open Settings / Upgrade Templates*.  There you can chose between two different lambda styles and check/uncheck the template files you want to enable/disable.
-
-## Contribute
-
-Any contributions are welcome.  Just fork the project, make your changes and create a pull request.
-
-Here are some guides:
-* [Create a template file for a utility class/library](https://github.com/xylo/intellij-postfix-templates/wiki/Create-a-template-file-for-a-utility-class-library)
-* [Add new language support](https://github.com/xylo/intellij-postfix-templates/wiki/Add-new-language-support)
-
-# See also
-* [Feature request for custom postfix completion at jetbrains.com](https://youtrack.jetbrains.com/issue/IDEA-122443)
+<p>
+  The Snapchat name, artwork, trademark are all property of Snap Inc. This
+  project is provided for educational purposes only. It is not affiliated with
+  and has not been approved by Snap Inc.
+</p>

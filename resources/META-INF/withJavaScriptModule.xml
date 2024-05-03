@@ -1,6 +1,0 @@
-<idea-plugin>
-	<extensions defaultExtensionNs="com.intellij">
-		<codeInsight.template.postfixTemplateProvider language="JavaScript"
-		                                              implementationClass="de.endrullis.idea.postfixtemplates.languages.javascript.JavaScriptPostfixTemplateProvider"/>
-	</extensions>
-</idea-plugin>
