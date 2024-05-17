@@ -1,6 +1,6 @@
 <h1 align="center">👻 Snapchat Clone</h1>sss
 đsssssssssssss  sssssssssssssssss
-<div align="center">sssssss
+<div align="center">sssssssss
   <img src="./public/readme/tech-logos/react.svg" width="55" alt="React" />
   <img src="./public/readme/tech-logos/redux.svg" width="55" alt="Redux" />
   <img
