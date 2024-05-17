@@ -1,4 +1,4 @@
-<h1 align="center">👻 Snapchat Clone</h1>
+<h1 align="center">👻 Snapchat Clone</h1>sss
 đsssssssssssss  sssss
 <div align="center">ss
   <img src="./public/readme/tech-logos/react.svg" width="55" alt="React" />
