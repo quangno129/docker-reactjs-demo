@@ -1,6 +1,6 @@
-<h1 align="center">👻 Snapchat Clone</h1>
-đâsdasdasđâsdasdassdsdsdsdssdsdsdsdsdshfvsdhfvds test merge request ssssssssdsds
-<div align="center">
+<h1 align="center">👻 Snapchat Clone</h1>sss
+đsssssssssssss  ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+<div align="center">sssssssss
   <img src="./public/readme/tech-logos/react.svg" width="55" alt="React" />
   <img src="./public/readme/tech-logos/redux.svg" width="55" alt="Redux" />
   <img
@@ -11,8 +11,8 @@
   <img
     src="./public/readme/tech-logos/javascript.svg"
     width="55"
-    alt="JavaScript"
-  />
+    alt="JavaScript"sss
+  />ss
   <img src="./public/readme/tech-logos/sass.svg" width="55" alt="Sass" />
   <img src="./public/readme/tech-logos/webpack.svg" width="55" alt="Webpack" />
   <img src="./public/readme/tech-logos/gulp.svg" width="35" alt="gulp" />
