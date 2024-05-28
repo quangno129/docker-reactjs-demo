@@ -32,7 +32,7 @@ podTemplate(
     containers: [
         containerTemplate(name: 'kaniko', image: 'gcr.io/kaniko-project/executor:v1.18.0-debug', ttyEnabled: true, privileged: true, command: 'cat'),
         containerTemplate(name: 'sonar-scanner', image: 'sonarsource/sonar-scanner-cli:5.0.1', ttyEnabled: true, privileged: true, command: 'cat'),
-        containerTemplate(name: 'maven', image: 'maven:3.8.1-jdk-8',  ttyEnabled: true, privileged: true, command: 'cat'),
+        containerTemplate(name: 'maven', image: 'maven:3.9.6-sapmachine-17',  ttyEnabled: true, privileged: true, command: 'cat'),
     ]
     // volumes: [
     //     persistentVolumeClaim(mountPath: '/root/.npm', claimName: 'npm-pv-claim', readOnly: false),
