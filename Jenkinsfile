@@ -48,14 +48,15 @@ podTemplate(
             //         git clone -b $branch https://${env.PERSONAL_ACCESS_TOKEN}@${env.SERVICE_REPO_URL} service --depth 1
             //     """
             //     }
-            // stage('Checkout') {
-            //     CURRENT_STAGE = "${env.STAGE_NAME}"
-            //     withCredentials([string(credentialsId: 'github-token', variable: 'PERSONAL_ACCESS_TOKEN')]) {
-            //         sh """
-            //             git clone https://${env.PERSONAL_ACCESS_TOKEN}@${env.SERVICE_REPO_URL} service --depth 1
-            //         """
-            //     }
-            // }
+            stage('Checkout') {
+                // CURRENT_STAGE = "${env.STAGE_NAME}"
+                // withCredentials([string(credentialsId: 'github-token', variable: 'PERSONAL_ACCESS_TOKEN')]) {
+                //     sh """
+                //         git clone https://${env.PERSONAL_ACCESS_TOKEN}@${env.SERVICE_REPO_URL} service --depth 1
+                //     """
+                // }
+                checkout
+            }
 
             // stage("Extract version") {
             //     CURRENT_STAGE = "${env.STAGE_NAME}"
