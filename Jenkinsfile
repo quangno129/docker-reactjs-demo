@@ -55,7 +55,10 @@ podTemplate(
                 //         git clone https://${env.PERSONAL_ACCESS_TOKEN}@${env.SERVICE_REPO_URL} service --depth 1
                 //     """
                 // }
-                checkout
+                steps {
+                    checkout scm
+                }
+
             }
 
             // stage("Extract version") {
