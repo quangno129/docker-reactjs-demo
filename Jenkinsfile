@@ -57,7 +57,6 @@ podTemplate(
                 // }
                     checkout scm
             }
-
             stage("SonarQube Analysis") {
                 CURRENT_STAGE = "${env.STAGE_NAME}"
                 dir("service") {
