@@ -56,9 +56,7 @@ podTemplate(
                 //     """
                 // }
                     checkout scm
-
             }
-
             // stage("Extract version") {
             //     CURRENT_STAGE = "${env.STAGE_NAME}"
             //     VERSION = "${VERSION}.${env.BUILD_NUMBER}"
