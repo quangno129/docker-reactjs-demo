@@ -40,8 +40,8 @@ podTemplate(
         try {
             stage('Checkout') {
                 sh """
-                git config --global user.email "you@example.com"
-                git config --global user.name "Your Name"
+                git config --global user.email "quangtran13121998@gmail.com"
+                git config --global user.name "quangno129"
                 """
             checkout([
                 class: 'GitSCM',
@@ -53,8 +53,6 @@ podTemplate(
                     credentialsId: 'github-credential',
                     url: ${env.SERVICE_REPO_URL}
                 ]],
-                globalConfigEmail: "quangtran13121998@gmail.com",
-                globalConfigName: "quangno129"
 
             ])
                 }
