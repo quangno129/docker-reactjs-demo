@@ -102,25 +102,6 @@ podTemplate(
             //         }
             //     }
             // }
-
-            // stage("Tag the version") {
-            //     CURRENT_STAGE = "${env.STAGE_NAME}"
-            //     dir("service") {
-            //         sh """
-            //             git config user.email jenkins
-            //             git config user.name jenkins
-
-            //             git add package.json
-            //             git commit --no-verify -m "chore(release): v${VERSION}"
-            //             git push origin "${params.BRANCH_TO_BUILD}"
-
-            //             git tag -a "v${VERSION}" -m "From branch: ${params.BRANCH_TO_BUILD}"
-            //             git push origin "v${VERSION}"
-            //         """
-            //     }
-
-            //     currentBuild.result = 'SUCCESS'
-            // }
         } catch (e) {
             currentBuild.result = 'FAILURE'
         }
