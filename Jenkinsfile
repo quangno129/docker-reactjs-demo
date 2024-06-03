@@ -39,10 +39,14 @@ podTemplate(
     //     secretVolume(mountPath: '/kaniko/.docker', secretName: 'kanikodocker', readOnly: false)
     // ]
     ) {
+
     node(POD_LABEL) {
+
         try {
             stage('Checkout') {
-    def isPr() {
+                steps{
+        script {
+        def isPr() {
         env.CHANGE_ID != null
     }
 
@@ -65,7 +69,12 @@ podTemplate(
             url: ${env.SERVICE_REPO_URL}
         ]]
     ])
-            }
+                    }
+                }
+
+                }
+
+
             stage("SonarQube Analysis") {
                 CURRENT_STAGE = "${env.STAGE_NAME}"
                 dir("service") {
@@ -89,6 +98,7 @@ podTemplate(
                     }
                     }
                 }
+            // }
         } catch (e) {
             currentBuild.result = 'FAILURE'
         }
