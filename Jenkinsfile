@@ -83,11 +83,11 @@ podTemplate(
         } finally {
             if (currentBuild.result == 'SUCCESS') {
                 sh """
-                    curl -X POST -H 'Content-Type: application/json' -d '{"state": "success", "target_url": "${env.BUILD_URL}", "description": "The build has succeeded!"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
+                    curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer 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' -d '{"state": "success", "target_url": "${env.BUILD_URL}", "description": "The build has succeeded!"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
                 """
             } else {
                 sh """
-                curl -X POST -H 'Content-Type: application/json' -d '{"state": "failure", "target_url": "${env.BUILD_URL}", "description": "The build has succeeded!"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
+                curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer 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' -d '{"state": "failure", "target_url": "${env.BUILD_URL}", "description": "The build has succeeded!"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
                 """
             }
         }
