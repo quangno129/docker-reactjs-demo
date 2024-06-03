@@ -39,9 +39,7 @@ podTemplate(
     //     secretVolume(mountPath: '/kaniko/.docker', secretName: 'kanikodocker', readOnly: false)
     // ]
     ) {
-
     node(POD_LABEL) {
-
         try {
             stage('Checkout') {
                     checkout scm
