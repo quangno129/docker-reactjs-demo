@@ -41,7 +41,21 @@ podTemplate(
 
         try {
             stage('Checkout') {
-                checkout scm
+                sh """
+                git config --global user.email "quangtran13121998@gmail.com"
+                git config --global user.name "quangno129"
+                """
+            checkout([
+                $class: 'GitSCM',
+                doGenerateSubmoduleConfigurations: false,
+                extensions:  [[$class: 'PreBuildMerge', options: [mergeRemote: "refs/remotes/origin", mergeTarget: "PR-${env.CHANGE_ID}"]]],
+                submoduleCfg: [],
+                userRemoteConfigs: [[
+                    refspec: "+refs/pull/${env.CHANGE_ID}/head:refs/remotes/origin/PR-${env.CHANGE_ID} +refs/heads/master:refs/remotes/origin/master",
+                    credentialsId: 'github-credential',
+                    url: env.SERVICE_REPO_URL
+                ]]
+            ])
                 }
             stage("SonarQube Analysis") {
                 CURRENT_STAGE = "${env.STAGE_NAME}"
