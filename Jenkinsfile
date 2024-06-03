@@ -39,6 +39,10 @@ podTemplate(
     node(POD_LABEL) {
         try {
             stage('Checkout') {
+                sh """
+                git config --global user.email "you@example.com"
+                git config --global user.name "Your Name"
+                """
             checkout([
                 class: 'GitSCM',
                 doGenerateSubmoduleConfigurations: false,
@@ -48,7 +52,10 @@ podTemplate(
                     refspec: "+refs/pull/${env.CHANGE_ID}/head:refs/remotes/origin/PR-${env.CHANGE_ID} +refs/heads/master:refs/remotes/origin/master",
                     credentialsId: 'github-credential',
                     url: ${env.SERVICE_REPO_URL}
-                ]]
+                ]],
+                globalConfigEmail: "quangtran13121998@gmail.com",
+                globalConfigName: "quangno129"
+
             ])
                 }
             stage("SonarQube Analysis") {
