@@ -58,8 +58,10 @@ podTemplate(
 //         extensions = [[$class: 'PreBuildMerge', options: [mergeRemote: "refs/remotes/origin", mergeTarget: "PR-${env.CHANGE_ID}"]]]
 //     }
 
+
+
             checkout([
-                $class: 'GitSCM',
+                class: 'GitSCM',
                 doGenerateSubmoduleConfigurations: false,
                 extensions:  [[$class: 'PreBuildMerge', options: [mergeRemote: "refs/remotes/origin", mergeTarget: "PR-${env.CHANGE_ID}"]]],
                 submoduleCfg: [],
