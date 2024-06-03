@@ -69,7 +69,6 @@ podTemplate(
                     }
                     }
                 }
-            // }
         } catch (e) {
             currentBuild.result = 'FAILURE'
         }
