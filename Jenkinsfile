@@ -57,20 +57,6 @@ podTemplate(
                 // }
                     checkout scm
             }
-            // stage("Extract version") {
-            //     CURRENT_STAGE = "${env.STAGE_NAME}"
-            //     VERSION = "${VERSION}.${env.BUILD_NUMBER}"
-            //     currentBuild.displayName = "${VERSION}"
-            //     if (params.BRANCH_TO_BUILD != 'main') {
-            //         currentBuild.description = "From the branch: ${params.BRANCH_TO_BUILD}"
-            //     }
-            //     addShortText(text: "${params.BRANCH_TO_BUILD}", border: 0, background: 'yellow')
-
-            //     sh """
-            //         # update version to package.json
-            //         sed -i -e 's/"version": .*"/"version": '\\\"${VERSION}\\\"'/g' service/package.json
-            //     """
-            // }
 
             stage("SonarQube Analysis") {
                 CURRENT_STAGE = "${env.STAGE_NAME}"
