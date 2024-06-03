@@ -66,14 +66,7 @@ podTemplate(
                     }
                     }
                 }
-            // }
-        } catch (e) {
-            currentBuild.result = 'FAILURE'
-        }
-
-
-    }
-          post {
+                          post {
     success {
         setBuildStatus("Build succeeded", "SUCCESS");
     }
@@ -81,4 +74,12 @@ podTemplate(
         setBuildStatus("Build failed", "FAILURE");
     }
   }
+            // }
+        } catch (e) {
+            currentBuild.result = 'FAILURE'
+        }
+
+
+    }
+
 }
