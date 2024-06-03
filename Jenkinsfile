@@ -43,11 +43,6 @@ podTemplate(
     node(POD_LABEL) {
 
         try {
-            // stage ('Example') {
-            //     sh """
-            //         git clone -b $branch https://${env.PERSONAL_ACCESS_TOKEN}@${env.SERVICE_REPO_URL} service --depth 1
-            //     """
-            //     }
             stage('Checkout') {
                     checkout scm
             }
