@@ -35,7 +35,6 @@ podTemplate(
         containerTemplate(name: 'maven', image: 'maven:3.9.6-sapmachine-17',  ttyEnabled: true, privileged: true, command: 'cat'),
     ]
     ) {
-
     node(POD_LABEL) {
         try {
             stage('Checkout') {
