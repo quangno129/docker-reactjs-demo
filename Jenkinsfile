@@ -37,7 +37,6 @@ podTemplate(
     ) {
 
     node(POD_LABEL) {
-
         try {
             stage('Checkout') {
             checkout([
