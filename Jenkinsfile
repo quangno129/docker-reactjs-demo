@@ -1,4 +1,5 @@
 def noti(resultState, message ) {
+    step (
     withCredentials([string(credentialsId: 'github-token', variable: 'PERSONAL_ACCESS_TOKEN')]) {
             if (resultState == 'SUCCESS') {
                 sh """
@@ -10,7 +11,7 @@ def noti(resultState, message ) {
                 curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer ${env.PERSONAL_ACCESS_TOKEN}' -d '{"state": "failure", "target_url": "${env.BUILD_URL}", "description": "The build has failed on stage ${message} !"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
                 """
             }
-    }
+    })
 }
 podTemplate(
     envVars: [
@@ -55,6 +56,7 @@ podTemplate(
 
         try {
             stage('Checkout') {
+
                 sh """
                 git config --global user.email "quangtran13121998@gmail.com"
                 git config --global user.name "quangno129"
@@ -71,6 +73,7 @@ podTemplate(
                 ]]
             ])
             currentBuild.result = 'SUCCESS'
+            // noti('SUCCESS',checkout)
             }
             stage("SonarQube Analysis") {
                 CURRENT_STAGE = "${env.STAGE_NAME}"
@@ -84,8 +87,8 @@ podTemplate(
                             """
 
                         }
+                        noti('SUCCESS',"sonar")
                     }
-                scr
                 }
                 stage("send report sonar") {
 
@@ -94,7 +97,7 @@ podTemplate(
                     sh """
                     mvn sonar:sonar -Dsonar.host.url=https://sonar-demo.waterbridgepoc.com -Dsonar.scm.revision=${env.SHA} -Dsonar.login=sqa_f0839d99e6093851d7f37888385a7f10d52c20cf  -Dsonar.pullrequest.provider=GitHub  -Dsonar.pullrequest.github.repository=${env.SERVICE_REPO_URL}  -Dsonar.pullrequest.key=${env.CHANGE_ID}   -Dsonar.pullrequest.branch=${env.REF} -Dsonar.projectKey=demo-react
                     """
-                    noti('SUCCESS',"sonar")
+                    // noti('SUCCESS',"sonar")
                     }
                     }
                 }
