@@ -39,23 +39,32 @@ podTemplate(
     //     secretVolume(mountPath: '/kaniko/.docker', secretName: 'kanikodocker', readOnly: false)
     // ]
     ) {
-
     node(POD_LABEL) {
-
         try {
-            // stage ('Example') {
-            //     sh """
-            //         git clone -b $branch https://${env.PERSONAL_ACCESS_TOKEN}@${env.SERVICE_REPO_URL} service --depth 1
-            //     """
-            //     }
             stage('Checkout') {
-                // CURRENT_STAGE = "${env.STAGE_NAME}"
-                // withCredentials([string(credentialsId: 'github-token', variable: 'PERSONAL_ACCESS_TOKEN')]) {
-                //     sh """
-                //         git clone https://${env.PERSONAL_ACCESS_TOKEN}@${env.SERVICE_REPO_URL} service --depth 1
-                //     """
-                // }
-                    checkout scm
+    def isPr() {
+        env.CHANGE_ID != null
+    }
+
+// github-specific refspec
+    def refspec = "+refs/pull/${env.CHANGE_ID}/head:refs/remotes/origin/PR-${env.CHANGE_ID} +refs/heads/master:refs/remotes/origin/master"
+
+    def extensions = []
+    if (isPr()) {
+        extensions = [[$class: 'PreBuildMerge', options: [mergeRemote: "refs/remotes/origin", mergeTarget: "PR-${env.CHANGE_ID}"]]]
+    }
+
+    checkout([
+        $class: 'GitSCM',
+        doGenerateSubmoduleConfigurations: false,
+        extensions: extensions,
+        submoduleCfg: [],
+        userRemoteConfigs: [[
+            refspec: refspec,
+            credentialsId: 'github-credential',
+            url: ${env.SERVICE_REPO_URL}
+        ]]
+    ])
             }
             stage("SonarQube Analysis") {
                 CURRENT_STAGE = "${env.STAGE_NAME}"
@@ -80,58 +89,6 @@ podTemplate(
                     }
                     }
                 }
-
-
-            //stage("SonarQube Quality Gate") {
-            //    timeout(time: 2, unit: 'MINUTES') {
-            //        def qg = waitForQualityGate()
-            //        if (qg.status != 'OK') {
-            //            error "Pipeline aborted due to quality gate failure: ${qg.status}"
-            //        }
-            //    }
-            //}
-
-            // stage("Build and Push Docker Image to ECR") {
-            //     CURRENT_STAGE = "${env.STAGE_NAME}"
-            //     dir("service") {
-            //         container(name: 'kaniko', shell: '/busybox/sh') {
-            //             withCredentials([string(credentialsId: 'npm-registry-token', variable: 'NPM_REGISTRY_TOKEN')]) {
-            //                 sh """#!/busybox/sh
-            //                     if [ "${NEED_TO_OVERRIDE_CONFIG}" = "true" ]
-            //                     then
-            //                         mv ../helmvalues/core/dev/${SERVICE_NAME}/${SERVICE_NAME}-${FILE_CONFIG} ${PATH_TO_CONFIG}${FILE_CONFIG}
-            //                     fi
-
-            //                     if [ "${NEED_ENV_FILE}" = "true" ]
-            //                     then
-            //                         mv ../helmvalues/core/dev/${SERVICE_NAME}/.env .env
-            //                     fi
-
-            //                     /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --build-arg NPM_REGISTRY_TOKEN="${NPM_REGISTRY_TOKEN}" --insecure --skip-tls-verify --cache=true --destination=${ECR_URL}/${PROJECT_NAME}/image/${SERVICE_NAME}:${VERSION}
-            //                 """
-            //             }
-            //         }
-            //     }
-            // }
-
-            // stage("Tag the version") {
-            //     CURRENT_STAGE = "${env.STAGE_NAME}"
-            //     dir("service") {
-            //         sh """
-            //             git config user.email jenkins
-            //             git config user.name jenkins
-
-            //             git add package.json
-            //             git commit --no-verify -m "chore(release): v${VERSION}"
-            //             git push origin "${params.BRANCH_TO_BUILD}"
-
-            //             git tag -a "v${VERSION}" -m "From branch: ${params.BRANCH_TO_BUILD}"
-            //             git push origin "v${VERSION}"
-            //         """
-            //     }
-
-            //     currentBuild.result = 'SUCCESS'
-            // }
         } catch (e) {
             currentBuild.result = 'FAILURE'
         }
