@@ -9,7 +9,6 @@
   </parent>
   <groupId>reactjs</groupId>
   <artifactId>reactjs</artifactId>
-
   <version>1.0-SNAPSHOT</version>
   <name>reactjs</name>
   <description>Blank multi project for Spring Boot + Elm</description>
