@@ -65,8 +65,7 @@ podTemplate(
                     url: ${env.SERVICE_REPO_URL}
                 ]]
             ])
-                //     }
-                // }
+
                 }
             stage("SonarQube Analysis") {
                 CURRENT_STAGE = "${env.STAGE_NAME}"
