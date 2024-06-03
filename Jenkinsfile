@@ -90,6 +90,8 @@ podTemplate(
                 curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer ${env.GH_SECRET}' -d '{"state": "failure", "target_url": "${env.BUILD_URL}", "description": "The build has succeeded!"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
                 """
             }
+
+            
         }
     }
 }
