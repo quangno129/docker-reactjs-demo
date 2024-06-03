@@ -70,12 +70,7 @@ podTemplate(
                     url: env.SERVICE_REPO_URL
                 ]]
             ])
-            steps {
-                script {
-                    currentBuild.result = 'SUCCESS'
-                    noti('SUCCESS',checkout)
-                }
-            }
+            currentBuild.result = 'SUCCESS'
             }
             stage("SonarQube Analysis") {
                 CURRENT_STAGE = "${env.STAGE_NAME}"
