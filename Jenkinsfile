@@ -83,11 +83,11 @@ podTemplate(
         } finally {
             if (currentBuild.result == 'SUCCESS') {
                 sh """
-                    curl -X POST -H 'Content-Type: application/json' -d '{"state": "success", "target_url": "${env.BUILD_URL}", "description": "The build has succeeded!"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/189a286f6a5eecc48406e602cd2a4cac3d6b8f36
+                    curl -X POST -H 'Content-Type: application/json' -d '{"state": "success", "target_url": "${env.BUILD_URL}", "description": "The build has succeeded!"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
                 """
             } else {
                 sh """
-                curl -X POST -H 'Content-Type: application/json' -d '{"state": "failure", "target_url": "${env.BUILD_URL}", "description": "The build has succeeded!"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/189a286f6a5eecc48406e602cd2a4cac3d6b8f36
+                curl -X POST -H 'Content-Type: application/json' -d '{"state": "failure", "target_url": "${env.BUILD_URL}", "description": "The build has succeeded!"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
                 """
             }
         }
