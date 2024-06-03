@@ -97,7 +97,6 @@ podTemplate(
                     sh """
                     mvn sonar:sonar -Dsonar.host.url=https://sonar-demo.waterbridgepoc.com -Dsonar.scm.revision=${env.SHA} -Dsonar.login=sqa_f0839d99e6093851d7f37888385a7f10d52c20cf  -Dsonar.pullrequest.provider=GitHub  -Dsonar.pullrequest.github.repository=${env.SERVICE_REPO_URL}  -Dsonar.pullrequest.key=${env.CHANGE_ID}   -Dsonar.pullrequest.branch=${env.REF} -Dsonar.projectKey=demo-react
                     """
-                    // noti('SUCCESS',"sonar")
                     }
                     }
                 }
