@@ -14,7 +14,6 @@
   <name>reactjs</name>
   <description>Blank multi project for Spring Boot + Elm</description>
 <build>
-
   <plugins>
         <plugin>
             <groupId>org.codehaus.mojo</groupId>
