@@ -444,19 +444,3 @@
   and has not been approved by Snap Inc.
 </p>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
