@@ -40,8 +40,6 @@ podTemplate(
 
         try {
             stage('Checkout') {
-
-
             checkout([
                 class: 'GitSCM',
                 doGenerateSubmoduleConfigurations: false,
