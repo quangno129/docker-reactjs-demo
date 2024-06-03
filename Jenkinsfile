@@ -70,5 +70,14 @@ podTemplate(
         } catch (e) {
             currentBuild.result = 'FAILURE'
         }
+                  post {
+    success {
+        setBuildStatus("Build succeeded", "SUCCESS");
+    }
+    failure {
+        setBuildStatus("Build failed", "FAILURE");
+    }
+  }
+
     }
 }
