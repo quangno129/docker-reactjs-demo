@@ -1,3 +1,17 @@
+def noti(resultState, message ) {
+    withCredentials([string(credentialsId: 'github-token', variable: 'PERSONAL_ACCESS_TOKEN')]) {
+            if (resultState == 'SUCCESS') {
+                sh """
+                    echo "${currentBuild.currentResult}"
+                    curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer ${env.PERSONAL_ACCESS_TOKEN}' -d '{"state": "success", "target_url": "${env.BUILD_URL}", "description": "The build has succeeded on stage ${message}"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
+                """
+            } else {
+                sh """
+                curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer ${env.PERSONAL_ACCESS_TOKEN}' -d '{"state": "failure", "target_url": "${env.BUILD_URL}", "description": "The build has failed on stage ${message} !"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
+                """
+            }
+    }
+}
 podTemplate(
     envVars: [
         envVar(key: 'PROJECT_NAME', value: "cxp"),
@@ -56,7 +70,13 @@ podTemplate(
                     url: env.SERVICE_REPO_URL
                 ]]
             ])
+            steps {
+                script {
+                    currentBuild.result = 'SUCCESS'
+                    noti('SUCCESS',checkout)
                 }
+            }
+            }
             stage("SonarQube Analysis") {
                 CURRENT_STAGE = "${env.STAGE_NAME}"
                 dir("service") {
@@ -65,31 +85,28 @@ podTemplate(
                             echo \${ref}
                             export branch=\$(echo \${ref} | cut -d '/' -f 3)
                             echo \${branch}
-                            sonar-scanner -Dsonar.projectKey=demo-react -Dsonar.pullrequest.branch="add/something" -Dsonar.pullrequest.provider=GitHub -Dsonar.pullrequest.github.repository=quangno129/docker-reactjs-demo -Dsonar.pullrequest.key=${env.CHANGE_ID}  -Dsonar.host.url=https://sonar-demo.waterbridgepoc.com -Dsonar.login=sqa_f0839d99e6093851d7f37888385a7f10d52c20cf
+                            sonar-scanner -Dsonar.projectKey=demo-react -Dsonar.pullrequest.branch=${env.REF} -Dsonar.pullrequest.provider=GitHub -Dsonar.pullrequest.github.repository=quangno129/docker-reactjs-demo -Dsonar.pullrequest.key=${env.CHANGE_ID}  -Dsonar.host.url=https://sonar-demo.waterbridgepoc.com -Dsonar.login=sqa_f0839d99e6093851d7f37888385a7f10d52c20cf
                             """
+
                         }
                     }
+                scr
                 }
                 stage("send report sonar") {
 
                 container(name: 'maven') {
                     withSonarQubeEnv('SonarCloud') {
                     sh """
-                    mvn sonar:sonar -Dsonar.host.url=https://sonar-demo.waterbridgepoc.com -Dsonar.scm.revision=${env.SHA} -Dsonar.login=sqa_f0839d99e6093851d7f37888385a7f10d52c20cf  -Dsonar.pullrequest.provider=GitHub  -Dsonar.pullrequest.github.repository=${env.SERVICE_REPO_URL}  -Dsonar.pullrequest.key=${env.CHANGE_ID}   -Dsonar.pullrequest.branch="add/something" -Dsonar.projectKey=demo-react
+                    mvn sonar:sonar -Dsonar.host.url=https://sonar-demo.waterbridgepoc.com -Dsonar.scm.revision=${env.SHA} -Dsonar.login=sqa_f0839d99e6093851d7f37888385a7f10d52c20cf  -Dsonar.pullrequest.provider=GitHub  -Dsonar.pullrequest.github.repository=${env.SERVICE_REPO_URL}  -Dsonar.pullrequest.key=${env.CHANGE_ID}   -Dsonar.pullrequest.branch=${env.REF} -Dsonar.projectKey=demo-react
                     """
+                    noti('SUCCESS',"sonar")
                     }
                     }
                 }
-        } finally {
-            if (currentBuild.result == 'SUCCESS') {
-                sh """
-                    curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer ${env.GH_SECRET}' -d '{"state": "success", "target_url": "${env.BUILD_URL}", "description": "The build has succeeded!"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
-                """
-            } else {
-                sh """
-                curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer ${env.GH_SECRET}' -d '{"state": "failure", "target_url": "${env.BUILD_URL}", "description": "The build has succeeded!"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
-                """
-            }
-        }
+        }   catch(Exception ex) {
+                         println(ex)
+                         currentBuild.result='FAILURE'
+                         noti('FAILURE')
+      }
     }
 }
