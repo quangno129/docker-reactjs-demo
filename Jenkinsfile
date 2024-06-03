@@ -69,8 +69,6 @@ podTemplate(
                     }
                     }
                 }
-
-
             //stage("SonarQube Quality Gate") {
             //    timeout(time: 2, unit: 'MINUTES') {
             //        def qg = waitForQualityGate()
