@@ -34,10 +34,7 @@ podTemplate(
         containerTemplate(name: 'sonar-scanner', image: 'sonarsource/sonar-scanner-cli:5.0.1', ttyEnabled: true, privileged: true, command: 'cat'),
         containerTemplate(name: 'maven', image: 'maven:3.9.6-sapmachine-17',  ttyEnabled: true, privileged: true, command: 'cat'),
     ]
-    // volumes: [
-    //     persistentVolumeClaim(mountPath: '/root/.npm', claimName: 'npm-pv-claim', readOnly: false),
-    //     secretVolume(mountPath: '/kaniko/.docker', secretName: 'kanikodocker', readOnly: false)
-    // ]
+
     ) {
 
     node(POD_LABEL) {
