@@ -69,28 +69,6 @@ podTemplate(
                     }
                     }
                 }
-
-            // stage("Build and Push Docker Image to ECR") {
-            //     CURRENT_STAGE = "${env.STAGE_NAME}"
-            //     dir("service") {
-            //         container(name: 'kaniko', shell: '/busybox/sh') {
-            //             withCredentials([string(credentialsId: 'npm-registry-token', variable: 'NPM_REGISTRY_TOKEN')]) {
-            //                 sh """#!/busybox/sh
-            //                     if [ "${NEED_TO_OVERRIDE_CONFIG}" = "true" ]
-            //                     then
-            //                         mv ../helmvalues/core/dev/${SERVICE_NAME}/${SERVICE_NAME}-${FILE_CONFIG} ${PATH_TO_CONFIG}${FILE_CONFIG}
-            //                     fi
-
-            //                     if [ "${NEED_ENV_FILE}" = "true" ]
-            //                     then
-            //                         mv ../helmvalues/core/dev/${SERVICE_NAME}/.env .env
-            //                     fi
-
-            //                     /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --build-arg NPM_REGISTRY_TOKEN="${NPM_REGISTRY_TOKEN}" --insecure --skip-tls-verify --cache=true --destination=${ECR_URL}/${PROJECT_NAME}/image/${SERVICE_NAME}:${VERSION}
-            //                 """
-            //             }
-            //         }
-            //     }
             // }
         } catch (e) {
             currentBuild.result = 'FAILURE'
