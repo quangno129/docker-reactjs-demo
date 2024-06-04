@@ -307,13 +307,7 @@
           <code>npm run storybook</code>
         </p>
       </td>
-      <td valign="top">
-        <img src="public/readme/redux-ext.png" />
-        <p>
-          >
-          or
-        </p>
-      </td>
+      <td
     </tr>
   </tbody>
 </table>
