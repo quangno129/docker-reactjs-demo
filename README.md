@@ -310,13 +310,6 @@
       <td
     </tr>
   </tbody>
-</table>
-
-
-<table>
-  <tbody>
-    <tr>
-      <th colspan="2" align="left">
         <strong>End-to-End Tests</strong>
       </th>
     </tr>
