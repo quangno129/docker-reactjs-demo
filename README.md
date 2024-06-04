@@ -312,10 +312,6 @@
         <p>
           >
           or
-          <a
-            href="https://addons.mozilla.org/en-US/firefox/addon/reduxdevtools/"
-            >here</a
-          >
         </p>
       </td>
     </tr>
