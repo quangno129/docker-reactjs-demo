@@ -1,3 +1,4 @@
+#!/usr/bin/env groovy
 def noti(state, message ) {
     step (
     withCredentials([string(credentialsId: 'github-token', variable: 'PERSONAL_ACCESS_TOKEN')]) {
@@ -107,9 +108,9 @@ podTemplate(
                     }
                 }
         }   catch(Exception ex) {
-                         println(ex)
-                         currentBuild.result='FAILURE'
-                         noti('FAILURE')
+            println(ex)
+            currentBuild.result='FAILURE'
+            noti('FAILURE')
       }
     //   finally {
     //       withCredentials([string(credentialsId: 'github-token', variable: 'PERSONAL_ACCESS_TOKEN')]) {
