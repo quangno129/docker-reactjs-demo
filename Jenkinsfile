@@ -96,14 +96,14 @@ podTemplate(
                             """
 
                         }
-                    }
+                }
                 noti('SUCCESS',"sonar")
                 }
         }   catch(Exception ex) {
             script {
             println(ex)
             currentBuild.result='FAILURE'
-            def nt = noti('FAILURE')
+            noti('FAILURE',ex)
 
             }
       }
