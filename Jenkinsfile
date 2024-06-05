@@ -62,6 +62,10 @@ podTemplate(
             // noti('SUCCESS',"checkout")
             // noti('PROCESSING',"sonar")
             }
+            stage ("noti SonarQube") {
+                    noti('PROCESSING',"sonar")
+            }
+
             stage("SonarQube Analysis") {
                 // dir("service") {
                 // noti('SUCCESS',"checkout")
@@ -70,9 +74,6 @@ podTemplate(
                 CURRENT_STAGE = "${env.STAGE_NAME}"
                 container(name: 'sonar-scanner') {
                 // noti('PROCESSING',"sonar")
-                stage ("noti SonarQube") {
-                    noti('PROCESSING',"sonar")
-                }
                 // noti('SUCCESS',"checkout")
                 // noti('PROCESSING',"sonar")
                 stage ("scan  SonarQube"){
