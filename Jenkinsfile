@@ -24,6 +24,7 @@ def noti(state, message ) {
 }
 
 podTemplate(
+    label("default"),
     envVars: [
         envVar(key: 'PROJECT_NAME', value: "cxp"),
         envVar(key: 'SERVICE_NAME', value: "docker-reactjs-demo"),
