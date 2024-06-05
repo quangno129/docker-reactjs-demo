@@ -1,4 +1,5 @@
 #!/usr/bin/groovy
+
 podTemplate(
     envVars: [
         envVar(key: 'PROJECT_NAME', value: "cxp"),
@@ -39,29 +40,6 @@ podTemplate(
     ) {
 
     node(POD_LABEL) {
-def noti(state, message ) {
-    step (
-    withCredentials([string(credentialsId: 'github-token', variable: 'PERSONAL_ACCESS_TOKEN')]) {
-    switch(state){
-        case "SUCCESS" :
-            sh """
-            echo "${currentBuild.currentResult}"
-            curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer ${env.PERSONAL_ACCESS_TOKEN}' -d '{"state": "success", "target_url": "${env.BUILD_URL}", "description": "The build has succeeded on stage ","context":"continuous-integration/${message}"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
-            """
-            break
-        case "FAIL" :
-            sh """
-            curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer ${env.PERSONAL_ACCESS_TOKEN}' -d '{"state": "failure", "target_url": "${env.BUILD_URL}", "description": "The build has failed on stage  !","context":"continuous-integration/${message}"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
-            """
-            break
-        case "PROCESSING":
-            sh """
-            curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer ${env.PERSONAL_ACCESS_TOKEN}' -d '{"state": "pending", "target_url": "${env.BUILD_URL}", "description": "The build has failed on stage  !","context":"continuous-integration/${message}"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
-            """
-            break
-    }
-    })
-}
 
         // try {
             stage('Checkout') {
@@ -81,8 +59,8 @@ def noti(state, message ) {
                 ]]
             ])
             currentBuild.result = 'SUCCESS'
-            noti('SUCCESS',"checkout")
-            noti('PROCESSING',"sonar")
+            // noti('SUCCESS',"checkout")
+            // noti('PROCESSING',"sonar")
             }
             stage("SonarQube Analysis") {
                 // dir("service") {
@@ -92,13 +70,17 @@ def noti(state, message ) {
                 CURRENT_STAGE = "${env.STAGE_NAME}"
                 container(name: 'sonar-scanner') {
                 // noti('PROCESSING',"sonar")
-
+                stage {
+                    noti('PROCESSING',"sonar")
+                }
                 // noti('SUCCESS',"checkout")
                 // noti('PROCESSING',"sonar")
+                stage {
+                sh """
+                sonar-scanner -Dsonar.projectKey=demo-react -Dsonar.pullrequest.branch=${env.REF} -Dsonar.pullrequest.provider=GitHub -Dsonar.pullrequest.github.repository=quangno129/docker-reactjs-demo -Dsonar.pullrequest.key=${env.CHANGE_ID}  -Dsonar.host.url=https://sonar-demo.waterbridgepoc.com -Dsonar.login=sqa_f0839d99e6093851d7f37888385a7f10d52c20cf
+                """
+                }
 
-                    sh """
-                    sonar-scanner -Dsonar.projectKey=demo-react -Dsonar.pullrequest.branch=${env.REF} -Dsonar.pullrequest.provider=GitHub -Dsonar.pullrequest.github.repository=quangno129/docker-reactjs-demo -Dsonar.pullrequest.key=${env.CHANGE_ID}  -Dsonar.host.url=https://sonar-demo.waterbridgepoc.com -Dsonar.login=sqa_f0839d99e6093851d7f37888385a7f10d52c20cf
-                    """
                 // }
                 }
             }
@@ -122,3 +104,26 @@ def noti(state, message ) {
 // }
 
 
+def noti(state, message ) {
+    step (
+    withCredentials([string(credentialsId: 'github-token', variable: 'PERSONAL_ACCESS_TOKEN')]) {
+    switch(state){
+        case "SUCCESS" :
+            sh """
+            echo "${currentBuild.currentResult}"
+            curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer ${env.PERSONAL_ACCESS_TOKEN}' -d '{"state": "success", "target_url": "${env.BUILD_URL}", "description": "The build has succeeded on stage ","context":"continuous-integration/${message}"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
+            """
+            break
+        case "FAIL" :
+            sh """
+            curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer ${env.PERSONAL_ACCESS_TOKEN}' -d '{"state": "failure", "target_url": "${env.BUILD_URL}", "description": "The build has failed on stage  !","context":"continuous-integration/${message}"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
+            """
+            break
+        case "PROCESSING":
+            sh """
+            curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer ${env.PERSONAL_ACCESS_TOKEN}' -d '{"state": "pending", "target_url": "${env.BUILD_URL}", "description": "The build has failed on stage  !","context":"continuous-integration/${message}"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
+            """
+            break
+    }
+    })
+}
