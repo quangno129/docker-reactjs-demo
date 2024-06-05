@@ -24,7 +24,6 @@ def noti(state, message ) {
 }
 
 podTemplate(
-    label("default"),
     envVars: [
         envVar(key: 'PROJECT_NAME', value: "cxp"),
         envVar(key: 'SERVICE_NAME', value: "docker-reactjs-demo"),
@@ -63,7 +62,8 @@ podTemplate(
 
     ) {
 
-    node("default") {
+    node(POD_LABEL) {
+
         // try {
             stage('Checkout') {
                 sh """
