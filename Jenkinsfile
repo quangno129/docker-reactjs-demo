@@ -8,14 +8,17 @@ def noti(state, message ) {
             echo "${currentBuild.currentResult}"
             curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer ${env.PERSONAL_ACCESS_TOKEN}' -d '{"state": "success", "target_url": "${env.BUILD_URL}", "description": "The build has succeeded on stage ","context":"continuous-integration/${message}"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
             """
+            break
         case "FAIL" :
             sh """
             curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer ${env.PERSONAL_ACCESS_TOKEN}' -d '{"state": "failure", "target_url": "${env.BUILD_URL}", "description": "The build has failed on stage  !","context":"continuous-integration/${message}"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
             """
+            break
         case "PROCESSING":
             sh """
             curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer ${env.PERSONAL_ACCESS_TOKEN}' -d '{"state": "pending", "target_url": "${env.BUILD_URL}", "description": "The build has failed on stage  !","context":"continuous-integration/${message}"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
             """
+            break
     }
     })
 }
