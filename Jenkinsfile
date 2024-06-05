@@ -55,7 +55,6 @@ podTemplate(
     namespace: 'jenkins',
     nodeSelector: 'group=JenkinsAgentGroup',
     containers: [
-        containerTemplate(name: 'jnlp', image: 'jenkinsci/jnlp-slave:2.62', args: '${computer.jnlpmac} ${computer.name}', workingDir: '/home/jenkins', resourceRequestCpu: '500m', resourceLimitCpu: '500m', resourceRequestMemory: '1024Mi', resourceLimitMemory: '1024Mi'),
         containerTemplate(name: 'kaniko', image: 'gcr.io/kaniko-project/executor:v1.18.0-debug', ttyEnabled: true, privileged: true, command: 'cat'),
         containerTemplate(name: 'sonar-scanner', image: 'sonarsource/sonar-scanner-cli:5.0.1', ttyEnabled: true, privileged: true, command: 'cat'),
         containerTemplate(name: 'maven', image: 'maven:3.9.6-sapmachine-17',  ttyEnabled: true, privileged: true, command: 'cat'),
@@ -84,6 +83,7 @@ podTemplate(
             ])
             currentBuild.result = 'SUCCESS'
             noti('SUCCESS',"checkout")
+            noti('PROCESSING',"sonar")
             }
             stage("SonarQube Analysis") {
                 // dir("service") {
@@ -92,18 +92,18 @@ podTemplate(
 
                 CURRENT_STAGE = "${env.STAGE_NAME}"
                 container(name: 'sonar-scanner') {
-                noti('PROCESSING',"sonar")
+                // noti('PROCESSING',"sonar")
 
                 // noti('SUCCESS',"checkout")
                 // noti('PROCESSING',"sonar")
 
-                    // sh """
-                    // sonar-scanner -Dsonar.projectKey=demo-react -Dsonar.pullrequest.branch=${env.REF} -Dsonar.pullrequest.provider=GitHub -Dsonar.pullrequest.github.repository=quangno129/docker-reactjs-demo -Dsonar.pullrequest.key=${env.CHANGE_ID}  -Dsonar.host.url=https://sonar-demo.waterbridgepoc.com -Dsonar.login=sqa_f0839d99e6093851d7f37888385a7f10d52c20cf
-                    // """
+                    sh """
+                    sonar-scanner -Dsonar.projectKey=demo-react -Dsonar.pullrequest.branch=${env.REF} -Dsonar.pullrequest.provider=GitHub -Dsonar.pullrequest.github.repository=quangno129/docker-reactjs-demo -Dsonar.pullrequest.key=${env.CHANGE_ID}  -Dsonar.host.url=https://sonar-demo.waterbridgepoc.com -Dsonar.login=sqa_f0839d99e6093851d7f37888385a7f10d52c20cf
+                    """
                 // }
                 }
             }
-            // noti('SUCCESS',"sonar")
+            noti('SUCCESS',"sonar")
         }
       }
     //   finally {
