@@ -85,8 +85,8 @@ podTemplate(
             // noti('PROCESSING',"sonar")
             stage("SonarQube Analysis") {
                 dir("service") {
-                noti('SUCCESS',"checkout")
-                noti('PROCESSING',"sonar")
+                // noti('SUCCESS',"checkout")
+                // noti('PROCESSING',"sonar")
 
                 CURRENT_STAGE = "${env.STAGE_NAME}"
                 container(name: 'sonar-scanner') {
