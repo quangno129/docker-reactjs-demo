@@ -84,7 +84,7 @@ podTemplate(
             // noti('SUCCESS',"checkout")
             // noti('PROCESSING',"sonar")
             stage("SonarQube Analysis") {
-                dir("service") {
+                // dir("service") {
                 // noti('SUCCESS',"checkout")
                 // noti('PROCESSING',"sonar")
 
@@ -93,7 +93,7 @@ podTemplate(
                     sh """
                     sonar-scanner -Dsonar.projectKey=demo-react -Dsonar.pullrequest.branch=${env.REF} -Dsonar.pullrequest.provider=GitHub -Dsonar.pullrequest.github.repository=quangno129/docker-reactjs-demo -Dsonar.pullrequest.key=${env.CHANGE_ID}  -Dsonar.host.url=https://sonar-demo.waterbridgepoc.com -Dsonar.login=sqa_f0839d99e6093851d7f37888385a7f10d52c20cf
                     """
-                }
+                // }
                 }
             }
             // noti('SUCCESS',"sonar")
