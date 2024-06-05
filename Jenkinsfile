@@ -63,6 +63,7 @@ podTemplate(
     node(POD_LABEL) {
 
         // try {
+            stages {
             stage('Checkout') {
                 sh """
                 git config --global user.email "quangtran13121998@gmail.com"
@@ -101,6 +102,7 @@ podTemplate(
             }
             // noti('SUCCESS',"sonar")
         }
+    }
       }
     //   finally {
     //       withCredentials([string(credentialsId: 'github-token', variable: 'PERSONAL_ACCESS_TOKEN')]) {
