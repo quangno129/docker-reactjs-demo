@@ -110,9 +110,12 @@ podTemplate(
                     }
                 }
         }   catch(Exception ex) {
+            script {
             println(ex)
             currentBuild.result='FAILURE'
             def nt = noti('FAILURE')
+
+            }
       }
     //   finally {
     //       withCredentials([string(credentialsId: 'github-token', variable: 'PERSONAL_ACCESS_TOKEN')]) {
