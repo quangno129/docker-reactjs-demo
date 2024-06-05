@@ -19,6 +19,7 @@ def noti(state, message ) {
     }
     })
 }
+return this
 podTemplate(
     envVars: [
         envVar(key: 'PROJECT_NAME', value: "cxp"),
@@ -110,7 +111,7 @@ podTemplate(
         }   catch(Exception ex) {
             println(ex)
             currentBuild.result='FAILURE'
-            noti('FAILURE')
+            def nt = noti('FAILURE')
       }
     //   finally {
     //       withCredentials([string(credentialsId: 'github-token', variable: 'PERSONAL_ACCESS_TOKEN')]) {
