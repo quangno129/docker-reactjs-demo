@@ -64,7 +64,6 @@ podTemplate(
 
         // try {
             stage('Checkout') {
-
                 sh """
                 git config --global user.email "quangtran13121998@gmail.com"
                 git config --global user.name "quangno129"
@@ -82,10 +81,13 @@ podTemplate(
             ])
             currentBuild.result = 'SUCCESS'
             }
-            noti('SUCCESS',"checkout")
-            noti('PROCESSING',"sonar")
+            // noti('SUCCESS',"checkout")
+            // noti('PROCESSING',"sonar")
             stage("SonarQube Analysis") {
                 dir("service") {
+                        // noti('SUCCESS',"checkout")
+            // noti('PROCESSING',"sonar")
+
                 CURRENT_STAGE = "${env.STAGE_NAME}"
                 container(name: 'sonar-scanner') {
                     sh """
@@ -94,7 +96,7 @@ podTemplate(
                 }
                 }
             }
-            noti('SUCCESS',"sonar")
+            // noti('SUCCESS',"sonar")
         }
       }
     //   finally {
