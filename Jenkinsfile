@@ -62,8 +62,7 @@ podTemplate(
 
     ) {
 
-    node(POD_LABEL) {
-
+    node("default") {
         // try {
             stage('Checkout') {
                 sh """
