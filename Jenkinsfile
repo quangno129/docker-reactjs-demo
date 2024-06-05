@@ -1,4 +1,4 @@
-#!/usr/bin/env groovy
+#!/usr/bin/groovy
 def noti(state, message ) {
     step (
     withCredentials([string(credentialsId: 'github-token', variable: 'PERSONAL_ACCESS_TOKEN')]) {
@@ -18,7 +18,6 @@ def noti(state, message ) {
             """
     }
     })
-    return this
 }
 
 podTemplate(
