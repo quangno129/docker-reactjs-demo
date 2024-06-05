@@ -18,8 +18,9 @@ def noti(state, message ) {
             """
     }
     })
+    return this
 }
-return this
+
 podTemplate(
     envVars: [
         envVar(key: 'PROJECT_NAME', value: "cxp"),
