@@ -59,30 +59,14 @@ podTemplate(
                 ]]
             ])
             currentBuild.result = 'SUCCESS'
-            // noti('SUCCESS',"checkout")
-            // noti('PROCESSING',"sonar")
             }
-            stage ("noti SonarQube") {
-                    noti('PROCESSING',"sonar")
-            }
-
             stage("SonarQube Analysis") {
-                // dir("service") {
-                // noti('SUCCESS',"checkout")
-                // noti('PROCESSING',"sonar")
-
                 CURRENT_STAGE = "${env.STAGE_NAME}"
                 container(name: 'sonar-scanner') {
-                // noti('PROCESSING',"sonar")
-                // noti('SUCCESS',"checkout")
-                // noti('PROCESSING',"sonar")
-                stage ("scan  SonarQube"){
                 sh """
+                curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer ${env.PERSONAL_ACCESS_TOKEN}' -d '{"state": "success", "target_url": "${env.BUILD_URL}", "description": "The build has succeeded on stage ","context":"continuous-integration/sonar"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
                 sonar-scanner -Dsonar.projectKey=demo-react -Dsonar.pullrequest.branch=${env.REF} -Dsonar.pullrequest.provider=GitHub -Dsonar.pullrequest.github.repository=quangno129/docker-reactjs-demo -Dsonar.pullrequest.key=${env.CHANGE_ID}  -Dsonar.host.url=https://sonar-demo.waterbridgepoc.com -Dsonar.login=sqa_f0839d99e6093851d7f37888385a7f10d52c20cf
                 """
-                }
-
-                // }
                 }
             }
             noti('SUCCESS',"sonar")
@@ -111,7 +95,6 @@ def noti(state, message ) {
     switch(state){
         case "SUCCESS" :
             sh """
-            echo "${currentBuild.currentResult}"
             curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer ${env.PERSONAL_ACCESS_TOKEN}' -d '{"state": "success", "target_url": "${env.BUILD_URL}", "description": "The build has succeeded on stage ","context":"continuous-integration/${message}"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
             """
             break
