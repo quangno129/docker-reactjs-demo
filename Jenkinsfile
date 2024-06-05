@@ -63,7 +63,6 @@ podTemplate(
     node(POD_LABEL) {
 
         // try {
-            stages {
             stage('Checkout') {
                 sh """
                 git config --global user.email "quangtran13121998@gmail.com"
@@ -81,9 +80,8 @@ podTemplate(
                 ]]
             ])
             currentBuild.result = 'SUCCESS'
-            }
             noti('SUCCESS',"checkout")
-            noti('PROCESSING',"sonar")
+            }
             stage("SonarQube Analysis") {
                 // dir("service") {
                 // noti('SUCCESS',"checkout")
@@ -91,6 +89,8 @@ podTemplate(
 
                 CURRENT_STAGE = "${env.STAGE_NAME}"
                 container(name: 'sonar-scanner') {
+                noti('PROCESSING',"sonar")
+
                 // noti('SUCCESS',"checkout")
                 // noti('PROCESSING',"sonar")
 
@@ -102,7 +102,6 @@ podTemplate(
             }
             // noti('SUCCESS',"sonar")
         }
-    }
       }
     //   finally {
     //       withCredentials([string(credentialsId: 'github-token', variable: 'PERSONAL_ACCESS_TOKEN')]) {
