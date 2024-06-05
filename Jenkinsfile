@@ -62,7 +62,7 @@ podTemplate(
 
     node(POD_LABEL) {
 
-        try {
+        // try {
             stage('Checkout') {
 
                 sh """
@@ -81,7 +81,7 @@ podTemplate(
                 ]]
             ])
             currentBuild.result = 'SUCCESS'
-            // noti('SUCCESS',checkout)
+            noti('SUCCESS',"checkout")
             }
             stage("SonarQube Analysis") {
                 CURRENT_STAGE = "${env.STAGE_NAME}"
@@ -95,14 +95,8 @@ podTemplate(
                             """
                 }
                 noti('SUCCESS',"sonar")
-                }
-        }   catch(Exception ex) {
-            script {
-            println(ex)
-            currentBuild.result='FAILURE'
-            noti('FAILURE',ex)
-
             }
+        }
       }
     //   finally {
     //       withCredentials([string(credentialsId: 'github-token', variable: 'PERSONAL_ACCESS_TOKEN')]) {
@@ -118,5 +112,4 @@ podTemplate(
     //         }
     //    }
     //   }
-    }
-}
+// }
