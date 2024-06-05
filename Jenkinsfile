@@ -11,7 +11,7 @@ def noti(state, message ) {
             sh """
             curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer ${env.PERSONAL_ACCESS_TOKEN}' -d '{"state": "failure", "target_url": "${env.BUILD_URL}", "description": "The build has failed on stage  !"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
             """
-        case "PROCESSING"
+        case "PROCESSING":
             sh """
             curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer ${env.PERSONAL_ACCESS_TOKEN}' -d '{"state": "pending", "target_url": "${env.BUILD_URL}", "description": "The build has failed on stage  !"}' https://api.github.com/repos/quangno129/docker-reactjs-demo/statuses/${env.SHA}
             """
