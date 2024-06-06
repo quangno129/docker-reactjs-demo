@@ -89,8 +89,6 @@ podTemplate(
     //    }
     //   }
 // }
-
-
 def noti(state, message ) {
     step (
     withCredentials([string(credentialsId: 'github-token', variable: 'PERSONAL_ACCESS_TOKEN')]) {
