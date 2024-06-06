@@ -423,6 +423,6 @@
 <p>
   The Snapchat name, artwork, trademark are all property of Snap Inc. This
   project is provided for educational purposes only. It is not affiliated with
-  and has not been approved by Snap Inc.
+  and has not been approved by Snap Inc.111
 </p>
 
