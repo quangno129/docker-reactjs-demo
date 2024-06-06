@@ -310,21 +310,8 @@
       <td
     </tr>
   </tbody>
-</table>
-
-
-<table>
-  <tbody>
-    <tr>
-      <th colspan="2" align="left">
         <strong>End-to-End Tests</strong>
       </th>
-    </tr>
-    <tr>
-      <td align="center" valign="top">
-        <a href="https://www.youtube.com/embed/tNrx6NlTYKI?autoplay=1">
-          <img src="public/readme/cypress.png" width="600" />
-        </a>
         <p>👆Click to see all tests run</p>
       </td>
       <td valign="top">
