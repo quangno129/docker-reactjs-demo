@@ -412,7 +412,7 @@
 
 <h2>⚠️ Contributing</h2>
 
-<p>
+<p>sss
   Please note I won't be accepting PR's on this project since it's part of my
   personal portfolio. You're more than welcome to fork and maintain your own
   version if you like!
