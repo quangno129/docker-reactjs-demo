@@ -418,7 +418,7 @@
   version if you like!
 </p>
 
-<h2>⚖️ License</h2>
+<h2>⚖️ License</h2>sss
 
 <p>
   The Snapchat name, artwork, trademark are all property of Snap Inc. This
