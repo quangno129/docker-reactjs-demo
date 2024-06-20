@@ -11,7 +11,7 @@
   <img
     src="./public/readme/tech-logos/javascript.svg"
     width="55"
-    alt="JavaScript"sss
+    alt="JavaScript"ssssss
   />ss
   <img src="./public/readme/tech-logos/sass.svg" width="55" alt="Sass" />
   <img src="./public/readme/tech-logos/webpack.svg" width="55" alt="Webpack" />
