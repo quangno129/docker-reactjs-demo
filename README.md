@@ -4,14 +4,14 @@
   <img src="./public/readme/tech-logos/react.svg" width="55" alt="React" />
   <img src="./public/readme/tech-logos/redux.svg" width="55" alt="Redux" />
   <img
-    src="./public/readme/tech-logos/typescript.svg"
+    src="./public/readme/tech-logos/typescript.svg"sssss
     width="55"
     alt="TypeScript"
   />
   <img
     src="./public/readme/tech-logos/javascript.svg"
     width="55"
-    alt="JavaScript"sss
+    alt="JavaScript"ssssss
   />ss
   <img src="./public/readme/tech-logos/sass.svg" width="55" alt="Sass" />
   <img src="./public/readme/tech-logos/webpack.svg" width="55" alt="Webpack" />
