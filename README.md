@@ -4,7 +4,7 @@
   <img src="./public/readme/tech-logos/react.svg" width="55" alt="React" />
   <img src="./public/readme/tech-logos/redux.svg" width="55" alt="Redux" />
   <img
-    src="./public/readme/tech-logos/typescript.svg"
+    src="./public/readme/tech-logos/typescript.svg"sssss
     width="55"
     alt="TypeScript"
   />
